@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InfinityWar.Characters;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -11,6 +12,8 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D thorTex;
+        Thor thor;
 
         public Game1()
         {
@@ -41,6 +44,8 @@ namespace InfinityWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            thorTex = Content.Load<Texture2D>("thorRight");
+            thor = new Thor(thorTex,new Vector2(200,200));
         }
 
         /// <summary>
@@ -63,7 +68,7 @@ namespace InfinityWar
                 Exit();
 
             // TODO: Add your update logic here
-
+            thor.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -76,6 +81,9 @@ namespace InfinityWar
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            thor.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -15,6 +15,7 @@ namespace InfinityWar.Characters
         public Controls _controls = new Controls();
         public Boolean isMoving = false;
 
+
         public Thor(Texture2D texture, Vector2 positie, Rectangle viewRectangle) : base(texture, positie, viewRectangle)
         {
             Animation = new Animation();
@@ -49,13 +50,15 @@ namespace InfinityWar.Characters
                 Positie -= Velocity;
                 Console.WriteLine("Left button is ingedrukt");
                 flipThor = SpriteEffects.FlipHorizontally;
+                isRight = false;
             }
                 
             if (_controls.Right)
             {
                 Positie += Velocity;
-                Console.WriteLine("Right button is ingedrukt");
+                Console.WriteLine("Right button ixs ingedrukt");
                 flipThor = SpriteEffects.None;
+                isRight = true;
 
             }
 

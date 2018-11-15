@@ -12,8 +12,8 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, thorIdleTex;
-        Thor thor;
+        Texture2D thorMovingTex, thorIdleTex, thorMovingLeftTex;
+        Thor thor, thorLeft;
 
         public Game1()
         {
@@ -45,8 +45,13 @@ namespace InfinityWar
 
             // TODO: use this.Content to load your game content here
             //thorMovingTex = Content.Load<Texture2D>("thorRight");
+
+            //hier worden alle objecten op het scherm getoond
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex,new Vector2(200,200), new Rectangle(0,0,68, 59));
+            thor = new Thor(thorMovingTex, new Vector2(200, 200), new Rectangle(0, 0, 68, 59));
+
+            thorMovingLeftTex = Content.Load<Texture2D>("ThorMovingLeft");
+            thorLeft = new Thor(thorMovingLeftTex, new Vector2(200, 200), new Rectangle(0, 0, 68, 59));
         }
 
         /// <summary>
@@ -70,6 +75,7 @@ namespace InfinityWar
 
             // TODO: Add your update logic here
             thor.Update(gameTime);
+            thorLeft.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -83,7 +89,14 @@ namespace InfinityWar
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            thor.Draw(spriteBatch);
+            if (thor.isRight == true)
+            {
+                thor.Draw(spriteBatch);
+            }
+            else
+            {
+                thorLeft.Draw(spriteBatch);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

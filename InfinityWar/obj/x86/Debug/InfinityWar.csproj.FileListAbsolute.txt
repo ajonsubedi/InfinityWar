@@ -21,3 +21,31 @@ C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.exe
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.pdb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorIdle.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMoving.xnb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.exe
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.pdb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorIdle.xnb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMoving.xnb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\Content\ThorIdle.xnb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\Content\ThorMoving.xnb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.exe
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.pdb
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csprojResolveAssemblyReference.cache
+C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMovingLeft.xnb

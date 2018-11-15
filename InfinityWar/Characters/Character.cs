@@ -14,6 +14,7 @@ namespace InfinityWar
         public Rectangle ViewRectangle;
         public Vector2 Positie;
         public Animation Animation;
+        public Boolean isRight = true;
 
         public Character(Texture2D texture, Vector2 positie, Rectangle viewRectangle)
         {

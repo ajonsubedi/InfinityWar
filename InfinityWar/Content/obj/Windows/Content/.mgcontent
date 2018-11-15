@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/thorRight.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorIdle.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMoving.png</File>
   </SourceFiles>
 </SourceFileCollection>

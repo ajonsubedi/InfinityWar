@@ -1,0 +1,7 @@
+ThorIdle:
+
+	- Rectangle size: 71px width
+			  79px height
+ThorMoving:
+	- Rectangle size: 87px width
+			  79px height

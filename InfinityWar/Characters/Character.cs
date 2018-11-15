@@ -10,16 +10,16 @@ namespace InfinityWar
 {
     class Character
     {
-        public Texture2D _texture;
-        public Rectangle _viewRectangle;
+        public Texture2D Texture;
+        public Rectangle ViewRectangle;
         public Vector2 Positie;
-        public Animation _animation;
+        public Animation Animation;
 
-        public Character(Texture2D texture, Vector2 positie)
+        public Character(Texture2D texture, Vector2 positie, Rectangle viewRectangle)
         {
-            _texture = texture;
+            Texture = texture;
             Positie = positie;
-            _viewRectangle = new Rectangle(0, 0, 136, 104);
+            ViewRectangle = viewRectangle;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -32,7 +32,7 @@ namespace InfinityWar
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Positie, _animation.CurrentFrame.SourceRectangle, Color.AliceBlue);
+            spriteBatch.Draw(Texture, Positie, Animation.CurrentFrame.SourceRectangle, Color.AliceBlue);
         }
     }
 }

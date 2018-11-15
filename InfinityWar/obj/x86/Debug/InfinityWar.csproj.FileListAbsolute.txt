@@ -1,4 +1,3 @@
-C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\thorRight.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.exe
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.pdb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\MonoGame.Framework.dll
@@ -20,3 +19,5 @@ C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csprojR
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csproj.CoreCompileInputs.cache
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.exe
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.pdb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorIdle.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMoving.xnb

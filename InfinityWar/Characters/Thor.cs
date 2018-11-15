@@ -13,24 +13,24 @@ namespace InfinityWar.Characters
         public Vector2 Velocity = new Vector2(2, 0);
         
         public Controls _controls = new Controls();
-        float rotation;
+        public Boolean isMoving = false;
 
-        public Thor(Texture2D texture, Vector2 positie) : base(texture, positie)
+        public Thor(Texture2D texture, Vector2 positie, Rectangle viewRectangle) : base(texture, positie, viewRectangle)
         {
-            _animation = new Animation();
-            _animation.AddFrame(new Rectangle(0, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(134, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(268, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(402, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(536, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(670, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(804, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(938, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(1072, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(1206, 0, 134, 100));
-            _animation.AddFrame(new Rectangle(1340, 0, 134, 100));
-            _animation.AantalBewegingenPerSeconde = 8;
-
+            Animation = new Animation();
+            Animation.AddFrame(new Rectangle(0, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(68, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(136, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(204, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(272, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(340, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(408, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(476, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(544, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(612, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(680, 0, 68, 59));
+            Animation.AddFrame(new Rectangle(748, 0, 68, 59));
+            Animation.AantalBewegingenPerSeconde = 8;
         }
 
         SpriteEffects flipThor = SpriteEffects.None;
@@ -39,7 +39,11 @@ namespace InfinityWar.Characters
             _controls.Update();
 
             if (_controls.Left || _controls.Right)
-                _animation.Update(gameTime);
+            {
+                Animation.Update(gameTime);
+                isMoving = true;
+            }
+                
             if (_controls.Left)
             {
                 Positie -= Velocity;
@@ -60,8 +64,11 @@ namespace InfinityWar.Characters
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+       
+           base.Draw(spriteBatch);
+           // spriteBatch.Draw(texture: Texture, destinationRectangle: ViewRectangle, sourceRectangle: Animation.CurrentFrame.SourceRectangle, color: Color.AliceBlue, rotation: 0f, origin: null, effects: flipThor, layerDepth: 0f);
 
-       }
+
+        }
     }
 }

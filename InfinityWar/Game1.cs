@@ -12,7 +12,7 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorTex;
+        Texture2D thorMovingTex, thorIdleTex;
         Thor thor;
 
         public Game1()
@@ -44,8 +44,9 @@ namespace InfinityWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            thorTex = Content.Load<Texture2D>("thorRight");
-            thor = new Thor(thorTex,new Vector2(200,200));
+            //thorMovingTex = Content.Load<Texture2D>("thorRight");
+            thorMovingTex = Content.Load<Texture2D>("ThorMoving");
+            thor = new Thor(thorMovingTex,new Vector2(200,200), new Rectangle(0,0,68, 59));
         }
 
         /// <summary>

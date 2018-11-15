@@ -12,12 +12,9 @@ namespace InfinityWar
         private List<AnimationFrame> frames;
         public AnimationFrame CurrentFrame { get; set; }
         public int AantalBewegingenPerSeconde { get; set; }
-
         private int counter = 0;
-
         private double x = 0;
         public double offset { get; set; }
-
         private int _totalWidth = 0;
 
         public Animation()

@@ -23,6 +23,12 @@ namespace InfinityWar
             ViewRectangle = viewRectangle;
         }
 
+        public Character(Texture2D texture, Rectangle viewRectangle)
+        {
+            Texture = texture;
+            ViewRectangle = viewRectangle;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
 

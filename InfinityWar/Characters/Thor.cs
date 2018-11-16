@@ -11,9 +11,11 @@ namespace InfinityWar.Characters
     class Thor : Character
     {
         public Vector2 Velocity = new Vector2(2, 0);
-        
         public Controls _controls = new Controls();
         public Boolean isMoving = false;
+        const float gravity = 100f;
+        float jumpSpeed = 500f;
+        public Boolean hasJumped = false;
 
 
         public Thor(Texture2D texture, Vector2 positie, Rectangle viewRectangle) : base(texture, positie, viewRectangle)
@@ -49,18 +51,38 @@ namespace InfinityWar.Characters
             {
                 Positie -= Velocity;
                 Console.WriteLine("Left button is ingedrukt");
-                flipThor = SpriteEffects.FlipHorizontally;
                 isRight = false;
             }
                 
-            if (_controls.Right)
+            else if (_controls.Right)
             {
                 Positie += Velocity;
-                Console.WriteLine("Right button ixs ingedrukt");
-                flipThor = SpriteEffects.None;
+                Console.WriteLine("Right button is ingedrukt");
                 isRight = true;
 
             }
+            
+
+            //Gravity update
+            if (_controls.Jump && hasJumped == false)
+            {
+                Positie.Y -= 10f;
+                Velocity.Y = -5f;
+                hasJumped = true;
+            }
+
+            if(hasJumped == true)
+            {
+                float i = 1;
+                Velocity.Y += 0.20f * i;
+            }
+
+            if (Positie.Y + Texture.Height >= 450)
+                hasJumped = false;
+
+            if (hasJumped == false)
+                Velocity.Y = 0f;
+           
 
             base.Update(gameTime);
         }

@@ -48,10 +48,10 @@ namespace InfinityWar
 
             //hier worden alle objecten op het scherm getoond
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(200, 200), new Rectangle(0, 0, 68, 59));
+            thor = new Thor(thorMovingTex, new Vector2(0, 400), new Rectangle(0, 0, 68, 59));
 
             thorMovingLeftTex = Content.Load<Texture2D>("ThorMovingLeft");
-            thorLeft = new Thor(thorMovingLeftTex, new Vector2(200, 200), new Rectangle(0, 0, 68, 59));
+            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 400), new Rectangle(0, 0, 68, 59));
         }
 
         /// <summary>

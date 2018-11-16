@@ -49,3 +49,4 @@ C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Sharp
 C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csprojResolveAssemblyReference.cache
 C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMovingLeft.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMovingLeft.xnb

@@ -11,7 +11,7 @@ namespace InfinityWar
     {
         public bool Left { get; set; }
         public bool Right { get; set; }
-       // public bool Jump { get; set; }
+        public bool Jump { get; set; }
 
         public void Update()
         {
@@ -37,14 +37,14 @@ namespace InfinityWar
             }
 
             //Springen
-           /* if (stateKey.IsKeyDown(Keys.Up))
+            if (stateKey.IsKeyDown(Keys.Up))
             {
                 Jump = true;
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {
                 Jump = false;
-            }*/
+            }
         }
     }
 }

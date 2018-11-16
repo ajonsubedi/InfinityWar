@@ -14,38 +14,58 @@ namespace InfinityWar.Characters
         public Controls _controls = new Controls();
         public Boolean isMoving = false;
         const float gravity = 100f;
-        float jumpSpeed = 500f;
-        public Boolean hasJumped = false;
+        float startY, jumpSpeed = 500f;
+        public Boolean isJumping = false;
+        public Animation Idle;
+
 
 
         public Thor(Texture2D texture, Vector2 positie, Rectangle viewRectangle) : base(texture, positie, viewRectangle)
         {
-            Animation = new Animation();
-            Animation.AddFrame(new Rectangle(0, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(68, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(136, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(204, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(272, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(340, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(408, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(476, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(544, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(612, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(680, 0, 68, 59));
-            Animation.AddFrame(new Rectangle(748, 0, 68, 59));
-            Animation.AantalBewegingenPerSeconde = 8;
+            startY = Positie.Y;
+            ///Animatie voor movement
+            Movement = new Animation();
+            Movement.AddFrame(new Rectangle(0, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(68, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(136, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(204, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(272, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(340, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(408, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(476, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(544, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(612, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(680, 0, 68, 59));
+            Movement.AddFrame(new Rectangle(748, 0, 68, 59));
+            Movement.AantalBewegingenPerSeconde = 8;
+
+            ///Animatie als Thor stilstaat
+           /* Idle = new Animation();
+            Idle.AddFrame(new Rectangle(0, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(52, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(104, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(156, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(208, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(260, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(312, 0, 52, 59));
+            Idle.AddFrame(new Rectangle(364, 0, 52, 59));
+            Idle.AantalBewegingenPerSeconde = 8;*/
         }
 
-        SpriteEffects flipThor = SpriteEffects.None;
         public override void Update(GameTime gameTime)
         {
             _controls.Update();
 
             if (_controls.Left || _controls.Right)
             {
-                Animation.Update(gameTime);
+                Movement.Update(gameTime);
                 isMoving = true;
             }
+           /* else
+            {
+                Idle.Update(gameTime);
+                isMoving = false;
+            }*/
                 
             if (_controls.Left)
             {
@@ -61,10 +81,28 @@ namespace InfinityWar.Characters
                 isRight = true;
 
             }
-            
+
 
             //Gravity update
-            if (_controls.Jump && hasJumped == false)
+            if (isJumping)
+            {
+                Positie.Y += jumpSpeed;
+                jumpSpeed += 1;
+                if(Positie.Y >= startY)
+                {
+                    Positie.Y = startY;
+                    isJumping = false;
+                }
+            }
+            else
+            {
+                if (_controls.Jump)
+                {
+                    isJumping = true;
+                    jumpSpeed = -14;
+                }
+            }
+          /*  if (_controls.Jump && hasJumped == false)
             {
                 Positie.Y -= 10f;
                 Velocity.Y = -5f;
@@ -81,19 +119,15 @@ namespace InfinityWar.Characters
                 hasJumped = false;
 
             if (hasJumped == false)
-                Velocity.Y = 0f;
+                Velocity.Y = 0f;*/
            
 
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-        {
-       
+        {       
            base.Draw(spriteBatch);
-           // spriteBatch.Draw(texture: Texture, destinationRectangle: ViewRectangle, sourceRectangle: Animation.CurrentFrame.SourceRectangle, color: Color.AliceBlue, rotation: 0f, origin: null, effects: flipThor, layerDepth: 0f);
-
-
         }
     }
 }

@@ -13,7 +13,7 @@ namespace InfinityWar
         public Texture2D Texture;
         public Rectangle ViewRectangle;
         public Vector2 Positie;
-        public Animation Animation;
+        public Animation Movement;
         public Boolean isRight = true;
 
         public Character(Texture2D texture, Vector2 positie, Rectangle viewRectangle)
@@ -39,7 +39,7 @@ namespace InfinityWar
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Positie, Animation.CurrentFrame.SourceRectangle, Color.AliceBlue);
+            spriteBatch.Draw(Texture, Positie, Movement.CurrentFrame.SourceRectangle, Color.AliceBlue);
         }
     }
 }

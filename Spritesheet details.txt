@@ -1,7 +1,7 @@
 ThorIdle:
 
-	- Rectangle size: 71px width
-			  79px height
+	- Rectangle size: 52px width
+			  59px height
 ThorMoving:
 	- Rectangle size: 87px width
 			  79px height

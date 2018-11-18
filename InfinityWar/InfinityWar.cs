@@ -1,4 +1,6 @@
 ﻿using InfinityWar.Characters;
+using InfinityWar.Level;
+using InfinityWar.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,14 +10,14 @@ namespace InfinityWar
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class InfinityWar : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, thorIdleTex, thorMovingLeftTex;
+        Texture2D thorMovingTex, thorIdleTex, thorMovingLeftTex, tileTex;
         Thor thor, thorLeft, thorIdle;
-
-        public Game1()
+        Stage1 stage1 = new Stage1();
+        public InfinityWar()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -30,7 +32,6 @@ namespace InfinityWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -44,17 +45,20 @@ namespace InfinityWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            //thorMovingTex = Content.Load<Texture2D>("thorRight");
 
             //hier worden alle objecten op het scherm getoond
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(0, 400), new Rectangle(0, 0, 68, 59));
+            thor = new Thor(thorMovingTex, new Vector2(0, 400), new Rectangle(0,0,68,59));
 
             thorMovingLeftTex = Content.Load<Texture2D>("ThorMovingLeft");
-            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 400), new Rectangle(0, 0, 68, 59));
+            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 400),new Rectangle(0,0,68,59));
 
-            ///thorIdleTex = Content.Load<Texture2D>("ThorIdle");
-            ///thorIdle = new Thor(thorIdleTex, new Vector2(0, 400), new Rectangle(0, 0, 52, 59));
+            tileTex = Content.Load<Texture2D>("tile");
+            stage1.tileTex = tileTex;
+            
+
+
+
         }
 
         /// <summary>
@@ -79,6 +83,9 @@ namespace InfinityWar
             // TODO: Add your update logic here
             thor.Update(gameTime);
             thorLeft.Update(gameTime);
+            stage1.CreateLevel();
+            
+            
            /// thorIdle.Update(gameTime);
             base.Update(gameTime);
         }
@@ -93,6 +100,7 @@ namespace InfinityWar
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            stage1.Draw(spriteBatch);
             if (thor.isRight == true)
             {
                 thor.Draw(spriteBatch);
@@ -101,10 +109,6 @@ namespace InfinityWar
             {
                 thorLeft.Draw(spriteBatch);
             }
-           /* else if(!thorIdle.isMoving)
-            {
-                thorIdle.Draw(spriteBatch);
-            }*/
             spriteBatch.End();
 
             base.Draw(gameTime);

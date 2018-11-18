@@ -4,8 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Ajon Subedi/Desktop/InfinityWar/InfinityWar/Content/ThorIdle.png</File>
-    <File>C:/Users/Ajon Subedi/Desktop/InfinityWar/InfinityWar/Content/ThorMoving.png</File>
-    <File>C:/Users/Ajon Subedi/Desktop/InfinityWar/InfinityWar/Content/ThorMovingLeft.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorIdle.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMoving.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMovingLeft.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile.png</File>
   </SourceFiles>
 </SourceFileCollection>

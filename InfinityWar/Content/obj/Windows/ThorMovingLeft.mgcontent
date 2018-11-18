@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Ajon Subedi/Desktop/InfinityWar/InfinityWar/Content/ThorMovingLeft.png</SourceFile>
-  <SourceTime>2018-11-16T00:12:39.8026828+01:00</SourceTime>
-  <DestFile>C:/Users/Ajon Subedi/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/ThorMovingLeft.xnb</DestFile>
-  <DestTime>2018-11-16T00:12:54.8247129+01:00</DestTime>
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMovingLeft.png</SourceFile>
+  <SourceTime>2018-11-17T17:11:23.760989+01:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/ThorMovingLeft.xnb</DestFile>
+  <DestTime>2018-11-17T17:15:08.7120155+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
+  <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2017-03-01T16:05:36+01:00</ProcessorTime>
+  <ProcessorTime>2017-09-27T03:32:24+02:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMoving.png</SourceFile>
-  <SourceTime>2018-11-17T17:11:23.7599915+01:00</SourceTime>
-  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/ThorMoving.xnb</DestFile>
-  <DestTime>2018-11-17T17:15:08.6701279+01:00</DestTime>
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile.png</SourceFile>
+  <SourceTime>2018-11-16T16:28:14.7226123+01:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/Content/tile.xnb</DestFile>
+  <DestTime>2018-11-17T18:50:28.3524006+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

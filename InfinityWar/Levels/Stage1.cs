@@ -32,10 +32,10 @@ namespace InfinityWar.Levels
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,1,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0}
         };
-        private Tile[,] tiles = new Tile[20, 9];
+        public Tile[,] tiles = new Tile[20, 9];
 
         public void CreateLevel()
         {

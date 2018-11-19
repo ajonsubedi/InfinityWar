@@ -15,8 +15,11 @@ namespace InfinityWar
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D thorMovingTex, thorIdleTex, thorMovingLeftTex, tileTex;
-        Thor thor, thorLeft, thorIdle;
+        Thor thor, thor2, thorLeft, thorIdle;
         Stage1 stage1 = new Stage1();
+        Collision collision = new Collision();
+        Tile tile;
+        
         public InfinityWar()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,14 +51,19 @@ namespace InfinityWar
 
             //hier worden alle objecten op het scherm getoond
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(0, 400), new Rectangle(0,0,68,59));
+            thor = new Thor(thorMovingTex, new Vector2(0, 391), new Rectangle(0,0,68,59));
+            thor2 = new Thor(thorMovingTex, new Vector2(0, 391), new Rectangle(0, 0, 68, 59));
 
             thorMovingLeftTex = Content.Load<Texture2D>("ThorMovingLeft");
-            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 400),new Rectangle(0,0,68,59));
+            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 391),new Rectangle(0,0,68,59));
 
             tileTex = Content.Load<Texture2D>("tile");
             stage1.tileTex = tileTex;
-            
+
+            thorIdleTex = Content.Load<Texture2D>("ThorIdle");
+            thorIdle = new Thor(thorIdleTex, new Vector2(0, 400), new Rectangle(0, 0, 52, 59));
+
+            tile = new Tile(tileTex, new Vector2(300, 400), new Rectangle(0, 0, 92, 24), true);
 
 
 
@@ -81,12 +89,14 @@ namespace InfinityWar
                 Exit();
 
             // TODO: Add your update logic here
+            stage1.CreateLevel();
             thor.Update(gameTime);
             thorLeft.Update(gameTime);
-            stage1.CreateLevel();
+            thorIdle.Update(gameTime);
+            //collision.SpriteCollide(thor,tile, thorLeft);
             
             
-           /// thorIdle.Update(gameTime);
+            
             base.Update(gameTime);
         }
 
@@ -101,14 +111,21 @@ namespace InfinityWar
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             stage1.Draw(spriteBatch);
-            if (thor.isRight == true)
+           /* if (thorIdle.isMoving == false)
+            {
+                thorIdle.Draw(spriteBatch);
+            }*/
+            if (/*thor.isMoving == true &&*/ thor.isRight == true)
             {
                 thor.Draw(spriteBatch);
             }
-            else
+            else if(thorLeft.isMoving == true && thorLeft.isRight == false)
             {
                 thorLeft.Draw(spriteBatch);
             }
+            tile.Draw(spriteBatch);
+
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

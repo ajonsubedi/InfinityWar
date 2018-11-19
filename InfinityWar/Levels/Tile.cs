@@ -25,4 +25,12 @@ namespace InfinityWar.Level
 
         }
     }
+
+    class CollisionTiles : Tile
+    {
+        public CollisionTiles(Texture2D texture, Vector2 positie, Rectangle viewRectangle, bool isVisible) : base(texture, positie, viewRectangle, isVisible)
+        {
+            ViewRectangle = viewRectangle;
+        }
+    }
 }

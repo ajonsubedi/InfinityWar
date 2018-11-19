@@ -50,6 +50,7 @@
     <Compile Include="Characters\Thor.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="InfinityWar.cs" />
+    <Compile Include="Interfaces\ICollide.cs" />
     <Compile Include="Interfaces\ISprite.cs" />
     <Compile Include="Levels\Collision.cs" />
     <Compile Include="Levels\Stage1.cs" />

@@ -4,9 +4,26 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/gameBackground.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorIdle.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMoving.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/thorMoving_CollisionText.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorMovingLeft.png</File>
-    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile1.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile10.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile11.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile12.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile13.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile14.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile15.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile16.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile2.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile3.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile4.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile5.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile6.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile7.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile8.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/tile9.png</File>
   </SourceFiles>
 </SourceFileCollection>

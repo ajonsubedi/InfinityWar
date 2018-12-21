@@ -37,9 +37,7 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
@@ -48,11 +46,14 @@
     <Compile Include="Animation\AnimationFrame.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\Thor.cs" />
+    <Compile Include="Collision\RectangleHelper.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="InfinityWar.cs" />
+    <Compile Include="Interfaces\IBackground.cs" />
     <Compile Include="Interfaces\ICollide.cs" />
     <Compile Include="Interfaces\ISprite.cs" />
-    <Compile Include="Levels\Collision.cs" />
+    <Compile Include="Levels\Background.cs" />
+    <Compile Include="Levels\Camera2D.cs" />
     <Compile Include="Levels\Stage1.cs" />
     <Compile Include="Levels\Tile.cs" />
     <Compile Include="Program.cs" />

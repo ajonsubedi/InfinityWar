@@ -12,20 +12,22 @@ namespace InfinityWar
     {
         public Texture2D Texture { get; set; }
         public Vector2 Positie;
+        //public Vector2 Positie { get; set; }
         public Rectangle ViewRectangle;
-        //public SpriteBatch SpriteBatch { get; set; }
+        public Rectangle Bounds
+        {
+           get { return new Rectangle((int)Positie.X, (int)Positie.Y, 92, 50); }
+        }
 
-        public Sprite(Texture2D texture, Vector2 positie, Rectangle viewRectangle)
+
+        public Sprite(Texture2D texture, Vector2 positie)
         {
             Texture = texture;
             Positie = positie;
-            ViewRectangle = viewRectangle;
         }
 
-        public Rectangle Bounds
-        {
-            get { return new Rectangle((int)Positie.X, (int)Positie.Y, Texture.Width, Texture.Height);}
-        }
+
+
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

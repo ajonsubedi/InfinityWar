@@ -14,12 +14,13 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, thorIdleTex, thorMovingLeftTex, tileTex;
-        Thor thor, thor2, thorLeft, thorIdle;
+        Texture2D thorMovingTex, thorIdleTex, gameBackgroundTex;
+        Thor thor, thorIdle;
         Stage1 stage1 = new Stage1();
-        Collision collision = new Collision();
-        Tile tile;
-        
+        Camera2D camera;
+        Background background;
+
+
         public InfinityWar()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -36,6 +37,7 @@ namespace InfinityWar
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+
         }
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace InfinityWar
         /// </summary>
         protected override void LoadContent()
         {
+            camera = new Camera2D(GraphicsDevice.Viewport);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -51,19 +54,18 @@ namespace InfinityWar
 
             //hier worden alle objecten op het scherm getoond
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(0, 391), new Rectangle(0,0,68,59));
-            thor2 = new Thor(thorMovingTex, new Vector2(0, 391), new Rectangle(0, 0, 68, 59));
+            thor = new Thor(thorMovingTex, new Vector2(0, 0));
 
-            thorMovingLeftTex = Content.Load<Texture2D>("ThorMovingLeft");
-            thorLeft = new Thor(thorMovingLeftTex, new Vector2(0, 391),new Rectangle(0,0,68,59));
-
-            tileTex = Content.Load<Texture2D>("tile");
-            stage1.tileTex = tileTex;
+            Tile.Content = Content;
+            stage1.DrawLevel1();
 
             thorIdleTex = Content.Load<Texture2D>("ThorIdle");
-            thorIdle = new Thor(thorIdleTex, new Vector2(0, 400), new Rectangle(0, 0, 52, 59));
+            //thorIdle = new Thor(thorIdleTex, new Vector2(0, 400));
 
-            tile = new Tile(tileTex, new Vector2(300, 400), new Rectangle(0, 0, 92, 24), true);
+            ///Hier worden de achtergronden geïnitialiseerd
+            gameBackgroundTex = Content.Load<Texture2D>("gameBackground");
+            background = new Background(gameBackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 
+                                        new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
 
 
@@ -89,11 +91,17 @@ namespace InfinityWar
                 Exit();
 
             // TODO: Add your update logic here
-            stage1.CreateLevel();
+            //stage1.SpriteCollide(thor);
             thor.Update(gameTime);
-            thorLeft.Update(gameTime);
-            thorIdle.Update(gameTime);
-            //collision.SpriteCollide(thor,tile, thorLeft);
+            foreach (CollisionTiles tile in stage1.CollisionTiles)
+            {
+                thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                camera.Update(thor.Positie, stage1.Width, stage1.Height);
+            }
+            
+           // thorIdle.Update(gameTime);
+
+      //      collision.CollisionDetect(thor, tile, thorLeft);
             
             
             
@@ -106,28 +114,25 @@ namespace InfinityWar
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(thor.bgColor);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            stage1.Draw(spriteBatch);
-           /* if (thorIdle.isMoving == false)
-            {
-                thorIdle.Draw(spriteBatch);
-            }*/
-            if (/*thor.isMoving == true &&*/ thor.isRight == true)
-            {
-                thor.Draw(spriteBatch);
-            }
-            else if(thorLeft.isMoving == true && thorLeft.isRight == false)
-            {
-                thorLeft.Draw(spriteBatch);
-            }
-            tile.Draw(spriteBatch);
 
-            
+            //Objeten die niet met de camera bewegen
+            spriteBatch.Begin();
+            background.Draw(spriteBatch);
             spriteBatch.End();
 
+
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                              BlendState.AlphaBlend,
+                              null, null, null, null,
+                              camera.Transform);
+            stage1.Draw(spriteBatch);
+            thor.Draw(spriteBatch);
+            spriteBatch.End();
+
+            
             base.Draw(gameTime);
         }
     }

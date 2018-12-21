@@ -9,24 +9,26 @@ using InfinityWar.Levels;
 
 namespace InfinityWar.Characters
 {
+    /// <summary>
+    /// Dit is een klasse voor de hero Thor, hier gebeuren al zijn bewegingen en acties
+    /// </summary>
     class Thor : Character
     {
-        public Vector2 Velocity = new Vector2(0, 0);
         public Controls _controls = new Controls();
         public Boolean isMoving = false;
         const float gravity = 100f;
-        float startY, jumpSpeed = 500f;
-        public Boolean isJumping = false;
         public Animation Idle;
         int state = 0;
         int nextMoveState = 68;
         int nextIdleState = 52;
+        public Vector2 OldPosition { get; set; }
 
 
 
-        public Thor(Texture2D texture, Vector2 positie, Rectangle viewRectangle) : base(texture, positie, viewRectangle)
+        public Thor(Texture2D texture, Vector2 positie) : base(texture, positie)
         {
-            startY = Positie.Y;
+            Positie = positie;
+            Texture = texture;
             ///Animatie voor movement
             Movement = new Animation();
             for (int i = 0; i < 11; i++)
@@ -43,18 +45,29 @@ namespace InfinityWar.Characters
                 Idle.AddFrame(new Rectangle(state, 0, 52, 59));
                 state += nextIdleState;
             }
+            ViewRectangle = new Rectangle((int)positie.X, (int)positie.Y, 68, 59);
+
+
 
         }
+
+        
+
+
 
         public void Update(GameTime gameTime)
         {
             Positie += Velocity;
             _controls.Update();
+            Velocity.Y += 0.20f;
+            ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 68, 59);
+
 
             if (_controls.Left || _controls.Right)
             {
                 Movement.Update(gameTime);
                 isMoving = true;
+                Console.WriteLine("Positie X: " + Positie.X + "   " + "Positie Y: " + Positie.Y);
             }
 
             if (isMoving)
@@ -62,15 +75,13 @@ namespace InfinityWar.Characters
                 if (_controls.Left)
                 {
                     Velocity.X = -3f; ;
-                    Console.WriteLine("Thor gaat naar links!");
-                    isRight = false;
+                    flipSprite = SpriteEffects.FlipHorizontally;
                 }
 
                 else if (_controls.Right)
                 {
                     Velocity.X = 3f;
-                    Console.WriteLine("Thor gaat naar rechts!");
-                    isRight = true;
+                    flipSprite = SpriteEffects.None;
 
                 }
                 else
@@ -79,36 +90,20 @@ namespace InfinityWar.Characters
                 }
 
 
-                ///Hier is de code om te springen en voor de zwaartekracht
+                ///Hier is de code om te springen
                 if(_controls.Jump && !isJumping)
                 {
                     Positie.Y -= 10f;
-                    Velocity.Y = -5f;
+                    Velocity.Y = -6f;
                     isJumping = true;
-
-                }
-                if (isJumping)
-                {
-                    float i = 1;
-                    Velocity.Y += 0.3f * i;
-                }
-                else
-                {
-                    Velocity.Y = 0f;
                 }
 
-                if (Positie.Y + Texture.Height >= 450)
-                {
-                    isJumping = false;
-                }  
             }
-            else
-            {
-                Idle.Update(gameTime);
-                Positie.X += ViewRectangle.X;
-            }
-        }    
-          
+
+        }
+
+
+
 
 
 

@@ -11,58 +11,72 @@ namespace InfinityWar.Levels
 {
     class Stage1
     {
-        public Texture2D tileTex;
-        public byte[,] tileArray = new Byte[,]
+        public bool isVisible = true;
+        private List<CollisionTiles> collisionTiles = new List<CollisionTiles>();
+        public List<CollisionTiles> CollisionTiles
         {
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0}
-        };
-        public Tile[,] tiles = new Tile[20, 9];
+            get { return collisionTiles; }
+        }
 
-        public void CreateLevel()
+        private int width, height;
+        public int Width
         {
-            for (int x = 0; x < 20; x++)
+            get { return width; }
+        }
+
+        public int Height
+        {
+            get { return height; }
+        }
+
+
+        public void Generate(int[,] map, int size)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
             {
-                for (int y = 0; y < 9; y++)
+                for (int y = 0; y < map.GetLength(0); y++)
                 {
-                    if (tileArray[x, y] == 1)
+                    int number = map[y, x];
+                    if (number > 0)
                     {
-                        tiles[x, y] = new Tile(tileTex, new Vector2(y * 92, x * 24), new Rectangle(0, 0, 92, 24), true);
+                        collisionTiles.Add(new CollisionTiles(number, new Rectangle(x * size, y * size, size, size)));
                     }
+
+                    width = (x + 1) * size;
+                    height = (y + 1) * size;
                 }
             }
         }
+
+        public void ClearMap()
+        {
+            collisionTiles.Clear();
+        }
+
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int x = 0; x < 20; x++)
+            foreach (CollisionTiles tile in collisionTiles)
             {
-                for (int y = 0; y < 9; y++)
-                {
-                    if (tiles[x, y] != null)
-                    {
-                        tiles[x, y].Draw(spriteBatch);
-                    }
-                }
+                tile.Draw(spriteBatch);
             }
         }
+
+        public void DrawLevel1() //Level 1 wordt gecreërd
+        {
+            Generate(new int[,]
+           {
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,0,0,0,13,14,15,0,0,0,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {0,0,13,14,15,0,0,0,0,0,0,0,0,0,0,0,13,14,15,0,0,0,0,0,0,0},
+              {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+              {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
+              {4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6},
+           }, 50); }
     }
 }

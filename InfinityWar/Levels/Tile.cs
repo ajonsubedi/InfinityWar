@@ -5,32 +5,42 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
 
 namespace InfinityWar.Level
 {
-    class Tile : Sprite
+    class Tile
     {
-        public bool IsVisible { get; set; }
-        public Tile(Texture2D texture, Vector2 positie,Rectangle viewRectangle, bool isVisible) : base(texture, positie, viewRectangle)
+        protected Texture2D texture;
+        private Rectangle rectangle;
+
+        public Rectangle Rectangle
         {
-            IsVisible = isVisible;
+            get { return rectangle; }
+            protected set { rectangle = value; }
+        }
+        private static ContentManager content;
+
+        public static ContentManager Content
+        {
+            protected get { return content; }
+            set { content = value; }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            if (IsVisible)
-            {
-                base.Draw(spriteBatch);
-            }
-
+            spriteBatch.Draw(texture, rectangle, Color.White);
         }
     }
 
     class CollisionTiles : Tile
     {
-        public CollisionTiles(Texture2D texture, Vector2 positie, Rectangle viewRectangle, bool isVisible) : base(texture, positie, viewRectangle, isVisible)
+        public CollisionTiles(int i, Rectangle newRectanlge)
         {
-            ViewRectangle = viewRectangle;
+            texture = Content.Load<Texture2D>("tile" + i);
+
+            Rectangle = newRectanlge;
         }
     }
 }

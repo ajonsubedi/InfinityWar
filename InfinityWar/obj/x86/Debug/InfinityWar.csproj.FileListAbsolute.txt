@@ -1,4 +1,3 @@
-C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.exe
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.pdb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\MonoGame.Framework.dll
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
@@ -17,7 +16,6 @@ C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.Dir
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csprojResolveAssemblyReference.cache
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csproj.CoreCompileInputs.cache
-C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.exe
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.pdb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorIdle.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMoving.xnb
@@ -50,4 +48,23 @@ C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Sharp
 C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.csprojResolveAssemblyReference.cache
 C:\Users\Ajon Subedi\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMovingLeft.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\ThorMovingLeft.xnb
-C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\InfinityWar.exe
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\obj\x86\Debug\InfinityWar.exe
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\thorMoving_CollisionText.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile1.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile10.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile11.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile12.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile13.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile14.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile15.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile16.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile2.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile3.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile4.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile5.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile6.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile7.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile8.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\tile9.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\gameBackground.xnb

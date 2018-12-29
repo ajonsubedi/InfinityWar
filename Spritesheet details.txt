@@ -8,3 +8,6 @@ ThorMoving:
 Tile:
 	-Rectangle size: 92px width
 			 24px height
+Enemy: 
+	-Rectangle size: 46px width
+		         48px height

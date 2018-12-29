@@ -4,6 +4,7 @@ using InfinityWar.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace InfinityWar
 {
@@ -14,11 +15,13 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, thorIdleTex, gameBackgroundTex;
+        Texture2D thorMovingTex, thorIdleTex, gameBackgroundTex, enemyTex;
         Thor thor, thorIdle;
+        Enemy enemy;
         Stage1 stage1 = new Stage1();
         Camera2D camera;
         Background background;
+        List<Enemy> enemiesLevel1 = new List<Enemy>();
 
 
         public InfinityWar()
@@ -56,6 +59,10 @@ namespace InfinityWar
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
             thor = new Thor(thorMovingTex, new Vector2(0, 0));
 
+            enemyTex = Content.Load<Texture2D>("enemy");
+            enemy = new Enemy(enemyTex, new Vector2(200, 0));
+           // enemiesLevel1.Add(new Enemy(enemyTex, new Vector2(300, 0)));
+
             Tile.Content = Content;
             stage1.DrawLevel1();
 
@@ -91,20 +98,24 @@ namespace InfinityWar
                 Exit();
 
             // TODO: Add your update logic here
-            //stage1.SpriteCollide(thor);
             thor.Update(gameTime);
+           // enemiesLevel1[0].Update(gameTime);
             foreach (CollisionTiles tile in stage1.CollisionTiles)
             {
                 thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 camera.Update(thor.Positie, stage1.Width, stage1.Height);
-            }
-            
-           // thorIdle.Update(gameTime);
+                enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
 
-      //      collision.CollisionDetect(thor, tile, thorLeft);
-            
-            
-            
+            }
+
+            //enemies
+            // enemiesLevel1[0].MoveEnemyAround(400, 300);
+
+
+
+
+
+
             base.Update(gameTime);
         }
 
@@ -130,6 +141,10 @@ namespace InfinityWar
                               camera.Transform);
             stage1.Draw(spriteBatch);
             thor.Draw(spriteBatch);
+            foreach (Enemy enemy in enemiesLevel1)
+            {
+                enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
+            }
             spriteBatch.End();
 
             

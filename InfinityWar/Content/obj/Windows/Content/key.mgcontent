@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/thorMoving_CollisionText.png</SourceFile>
-  <SourceTime>2019-07-10T18:59:25.7956058+02:00</SourceTime>
-  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/thorMoving_CollisionText.xnb</DestFile>
-  <DestTime>2019-07-10T23:45:24.3786007+02:00</DestTime>
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/key.png</SourceFile>
+  <SourceTime>2019-07-10T23:45:05.1625369+02:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/Content/key.xnb</DestFile>
+  <DestTime>2019-07-10T23:45:29.9305011+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

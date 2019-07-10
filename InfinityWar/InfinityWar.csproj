@@ -56,6 +56,8 @@
     <Compile Include="Levels\Background.cs" />
     <Compile Include="Levels\Camera2D.cs" />
     <Compile Include="Levels\Coin.cs" />
+    <Compile Include="Levels\Door.cs" />
+    <Compile Include="Levels\Key.cs" />
     <Compile Include="Levels\Score.cs" />
     <Compile Include="Levels\Spike.cs" />
     <Compile Include="Levels\Stage1.cs" />

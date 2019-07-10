@@ -5,8 +5,10 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/coin.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/door.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/enemy.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/gameBackground.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/key.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/scoreFont.spritefont</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/spike.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/ThorIdle.png</File>

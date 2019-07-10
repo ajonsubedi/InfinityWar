@@ -10,7 +10,6 @@ namespace InfinityWar.Levels
 {
     class Coin : Sprite
     {
-        public Rectangle _rectangle;
         public Animation _animation;
         public Vector2 _velocity;
         public bool isRemoved = false;
@@ -30,21 +29,21 @@ namespace InfinityWar.Levels
         {
             //coin een gravity geven
             Positie += _velocity;
-            _rectangle = new Rectangle((int)Positie.X, (int)Positie.Y + 10, 30, 30);
+            ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y + 10, 30, 30);
 
 
             //Coin laten draaien
             _animation.Update(gameTime);
-            _rectangle.X += 30;
-            if (_rectangle.X > 999999999999999999)
-                _rectangle.X = 0;
+            ViewRectangle.X += 30;
+            if (ViewRectangle.X > 999999999999999999)
+                ViewRectangle.X = 0;
             if (_velocity.Y < 30)
                 _velocity.Y += 0.4f;
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
-            if (_rectangle.TouchTopOf(newRectangle))
+            if (ViewRectangle.TouchTopOf(newRectangle))
             {
                 // _rectangle.Y = newRectangle.Y - _rectangle.Height;
                 _velocity.Y = 0f;

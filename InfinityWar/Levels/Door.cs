@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace InfinityWar.Levels
 {
-    class Spike : Sprite
+    class Door : Sprite
     {
         public Vector2 _velocity;
-        public Spike(Texture2D texture, Vector2 positie) : base(texture, positie)
+        public Door(Texture2D texture, Vector2 positie) : base(texture, positie)
         {
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y + 10, 50, 50);
         }

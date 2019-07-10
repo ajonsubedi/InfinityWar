@@ -15,7 +15,7 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, gameBackgroundTex, enemyTex, coinTex, spikeTex;
+        Texture2D thorMovingTex, gameBackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex;
         Thor thor, thorIdle;
         Enemy enemy;
         Stage1 stage1 = new Stage1();
@@ -23,10 +23,13 @@ namespace InfinityWar
         Background background;
         List<Coin> coins = new List<Coin>();
         List<Spike> spikes = new List<Spike>();
+        List<Key> keys = new List<Key>();
+        Door door;
         List<Enemy> enemiesLevel1 = new List<Enemy>();
         static Score score, finalScore;
         static SpriteFont scoreFont, finalScoreFont;
         static Vector2 scorePos, finalScorePos;
+        bool doorisLocked = true;
 
 
         public InfinityWar()
@@ -69,7 +72,6 @@ namespace InfinityWar
 
 
             coinTex = Content.Load<Texture2D>("coin");
-            coins.Add(new Coin(coinTex, new Vector2(100, 0)));
             coins.Add(new Coin(coinTex, new Vector2(150, 0)));
             coins.Add(new Coin(coinTex, new Vector2(200, 0)));
             coins.Add(new Coin(coinTex, new Vector2(100, 300)));
@@ -78,7 +80,7 @@ namespace InfinityWar
             coins.Add(new Coin(coinTex, new Vector2(350, 390)));
             coins.Add(new Coin(coinTex, new Vector2(400, 390)));
             coins.Add(new Coin(coinTex, new Vector2(450, 390)));
-            coins.Add(new Coin(coinTex, new Vector2(600, 495)));
+            coins.Add(new Coin(coinTex, new Vector2(650, 495)));
             coins.Add(new Coin(coinTex, new Vector2(350, 590)));
             coins.Add(new Coin(coinTex, new Vector2(400, 590)));
             coins.Add(new Coin(coinTex, new Vector2(450, 590)));
@@ -156,6 +158,13 @@ namespace InfinityWar
             spikes.Add(new Spike(spikeTex, new Vector2(2500, 800)));
             spikes.Add(new Spike(spikeTex, new Vector2(2550, 800)));
 
+            doorTex = Content.Load<Texture2D>("door");
+            door = new Door(doorTex, new Vector2(700, 700));
+
+            keyTex = Content.Load<Texture2D>("key");
+            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+            keys.Add(new Key(keyTex, new Vector2(500, 10)));
+
             Tile.Content = Content;
             stage1.DrawLevel1();
 
@@ -190,6 +199,7 @@ namespace InfinityWar
             // TODO: Add your update logic here
             thor.Update(gameTime);
            // enemiesLevel1[0].Update(gameTime);
+
             foreach (CollisionTiles tile in stage1.CollisionTiles)
             {
                 thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
@@ -199,17 +209,21 @@ namespace InfinityWar
                 {
 
                     coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if (thor.ViewRectangle.Intersects(coin._rectangle))
+                    if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
                     {
                         coin.isRemoved = true;
                     }
+                }
+                if (doorisLocked)
+                {
+                    thor.Collision(door.ViewRectangle, stage1.Width, stage1.Height);
                 }
 
                 foreach (Spike spike in spikes)
                 {
 
                     spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if (thor.ViewRectangle.Intersects(spike._rectangle))
+                    if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
                     {
                         System.Console.WriteLine("thor is dood");
                     }
@@ -220,6 +234,24 @@ namespace InfinityWar
                     {
                         coins.RemoveAt(i);
                         score._score++;
+                    }
+                }
+
+                foreach (Key key in keys)
+                {
+                    if (thor.ViewRectangle.Intersects(key.ViewRectangle))
+                    {
+                        key.isTaken = true;
+                        keys[1].isVisible = true;
+
+                    }
+                }
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    if (keys[i].isTaken)
+                    {
+                        keys.RemoveAt(i);
+                        doorisLocked = false;
                     }
                 }
 
@@ -268,17 +300,25 @@ namespace InfinityWar
             foreach (Coin coin in coins)
             {
                 coin.Draw(spriteBatch);
-
             }
             foreach (Spike spike in spikes)
             {
                 spike.Draw(spriteBatch);
-
             }
+            keys[0].Draw(spriteBatch);
+            
+            door.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin();
             score.Draw(spriteBatch);
+            foreach (Key key in keys)
+            {
+                if (key.isVisible)
+                {
+                    key.Draw(spriteBatch);
+                }
+            }
             spriteBatch.End();
 
 

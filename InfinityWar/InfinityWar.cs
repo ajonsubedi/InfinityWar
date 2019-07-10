@@ -15,13 +15,18 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, thorIdleTex, gameBackgroundTex, enemyTex;
+        Texture2D thorMovingTex, gameBackgroundTex, enemyTex, coinTex, spikeTex;
         Thor thor, thorIdle;
         Enemy enemy;
         Stage1 stage1 = new Stage1();
         Camera2D camera;
         Background background;
+        List<Coin> coins = new List<Coin>();
+        List<Spike> spikes = new List<Spike>();
         List<Enemy> enemiesLevel1 = new List<Enemy>();
+        static Score score, finalScore;
+        static SpriteFont scoreFont, finalScoreFont;
+        static Vector2 scorePos, finalScorePos;
 
 
         public InfinityWar()
@@ -61,13 +66,98 @@ namespace InfinityWar
 
             enemyTex = Content.Load<Texture2D>("enemy");
             enemy = new Enemy(enemyTex, new Vector2(200, 0));
-           // enemiesLevel1.Add(new Enemy(enemyTex, new Vector2(300, 0)));
+
+
+            coinTex = Content.Load<Texture2D>("coin");
+            coins.Add(new Coin(coinTex, new Vector2(100, 0)));
+            coins.Add(new Coin(coinTex, new Vector2(150, 0)));
+            coins.Add(new Coin(coinTex, new Vector2(200, 0)));
+            coins.Add(new Coin(coinTex, new Vector2(100, 300)));
+            coins.Add(new Coin(coinTex, new Vector2(150, 300)));
+            coins.Add(new Coin(coinTex, new Vector2(200, 300)));
+            coins.Add(new Coin(coinTex, new Vector2(350, 390)));
+            coins.Add(new Coin(coinTex, new Vector2(400, 390)));
+            coins.Add(new Coin(coinTex, new Vector2(450, 390)));
+            coins.Add(new Coin(coinTex, new Vector2(600, 495)));
+            coins.Add(new Coin(coinTex, new Vector2(350, 590)));
+            coins.Add(new Coin(coinTex, new Vector2(400, 590)));
+            coins.Add(new Coin(coinTex, new Vector2(450, 590)));
+            coins.Add(new Coin(coinTex, new Vector2(100, 690)));
+            coins.Add(new Coin(coinTex, new Vector2(150, 690)));
+            coins.Add(new Coin(coinTex, new Vector2(0, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(50, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(100, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(150, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(200, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(250, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(300, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(350, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(400, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(450, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(500, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(550, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(600, 800)));
+            coins.Add(new Coin(coinTex, new Vector2(700, 690)));
+            coins.Add(new Coin(coinTex, new Vector2(750, 690)));
+            coins.Add(new Coin(coinTex, new Vector2(950, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1000, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1050, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1100, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1150, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1200, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1250, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1300, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1350, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1400, 590)));
+            coins.Add(new Coin(coinTex, new Vector2(1650, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(1900, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(2150, 640)));
+            coins.Add(new Coin(coinTex, new Vector2(2400, 640)));
+
+            scoreFont = Content.Load<SpriteFont>("scoreFont");
+            scorePos = new Vector2(5, 15);
+            score = new Score(scoreFont, scorePos);
+
+            spikeTex = Content.Load<Texture2D>("spike");
+            spikes.Add(new Spike(spikeTex, new Vector2(800, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(850, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(900, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(950, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1000, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1050, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1100, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1150, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1200, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1250, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1300, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1350, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1400, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1450, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1500, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1550, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1600, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1650, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1700, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1750, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1800, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1850, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1900, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(1950, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2000, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2050, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2100, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2150, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2200, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2250, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2300, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2350, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2400, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2450, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2500, 800)));
+            spikes.Add(new Spike(spikeTex, new Vector2(2550, 800)));
 
             Tile.Content = Content;
             stage1.DrawLevel1();
-
-            thorIdleTex = Content.Load<Texture2D>("ThorIdle");
-            //thorIdle = new Thor(thorIdleTex, new Vector2(0, 400));
 
             ///Hier worden de achtergronden geïnitialiseerd
             gameBackgroundTex = Content.Load<Texture2D>("gameBackground");
@@ -105,11 +195,40 @@ namespace InfinityWar
                 thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 camera.Update(thor.Positie, stage1.Width, stage1.Height);
                 enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                foreach (Coin coin in coins)
+                {
+
+                    coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                    if (thor.ViewRectangle.Intersects(coin._rectangle))
+                    {
+                        coin.isRemoved = true;
+                    }
+                }
+
+                foreach (Spike spike in spikes)
+                {
+
+                    spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                    if (thor.ViewRectangle.Intersects(spike._rectangle))
+                    {
+                        System.Console.WriteLine("thor is dood");
+                    }
+                }
+                for (int i = 0; i < coins.Count; i++)
+                {
+                    if (coins[i].isRemoved)
+                    {
+                        coins.RemoveAt(i);
+                        score._score++;
+                    }
+                }
 
             }
+            foreach (Coin coin in coins) //coin laten draaien
+            {
+                coin.Update(gameTime);
+            }
 
-            //enemies
-            // enemiesLevel1[0].MoveEnemyAround(400, 300);
 
 
 
@@ -132,6 +251,7 @@ namespace InfinityWar
             //Objeten die niet met de camera bewegen
             spriteBatch.Begin();
             background.Draw(spriteBatch);
+            score.Draw(spriteBatch);
             spriteBatch.End();
 
 
@@ -145,9 +265,23 @@ namespace InfinityWar
             {
                 enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
             }
+            foreach (Coin coin in coins)
+            {
+                coin.Draw(spriteBatch);
+
+            }
+            foreach (Spike spike in spikes)
+            {
+                spike.Draw(spriteBatch);
+
+            }
             spriteBatch.End();
 
-            
+            spriteBatch.Begin();
+            score.Draw(spriteBatch);
+            spriteBatch.End();
+
+
             base.Draw(gameTime);
         }
     }

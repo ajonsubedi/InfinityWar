@@ -12,7 +12,6 @@ namespace InfinityWar
     {
         public Texture2D Texture { get; set; }
         public Vector2 Positie;
-        //public Vector2 Positie { get; set; }
         public Rectangle ViewRectangle;
         public Rectangle Bounds
         {

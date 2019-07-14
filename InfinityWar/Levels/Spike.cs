@@ -24,6 +24,8 @@ namespace InfinityWar.Levels
             }
         }
 
+        
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Positie, Color.White);

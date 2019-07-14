@@ -25,12 +25,13 @@ namespace InfinityWar
         List<Spike> spikes = new List<Spike>();
         List<Key> keys = new List<Key>();
         Door door;
-        List<Enemy> enemiesLevel1 = new List<Enemy>();
+        List<Enemy> enemies = new List<Enemy>();
         Mjolnir mjolnir;
         static Score score, finalScore;
         static SpriteFont scoreFont, finalScoreFont;
         static Vector2 scorePos, finalScorePos;
         bool doorisLocked = true;
+        int heartX = 150;
 
 
         public InfinityWar()
@@ -56,38 +57,31 @@ namespace InfinityWar
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
+        /// 
+
+        public void AddCoinsStage1()
         {
-            camera = new Camera2D(GraphicsDevice.Viewport);
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-
-            //hier worden alle objecten op het scherm getoond
-            thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(0, 0));
-
-            enemyTex = Content.Load<Texture2D>("enemy");
-            enemy = new Enemy(enemyTex, new Vector2(200, 0));
-
-
-            coinTex = Content.Load<Texture2D>("coin");
             coins.Add(new Coin(coinTex, new Vector2(150, 0)));
             coins.Add(new Coin(coinTex, new Vector2(200, 0)));
+
             coins.Add(new Coin(coinTex, new Vector2(100, 300)));
             coins.Add(new Coin(coinTex, new Vector2(150, 300)));
             coins.Add(new Coin(coinTex, new Vector2(200, 300)));
+
             coins.Add(new Coin(coinTex, new Vector2(350, 390)));
             coins.Add(new Coin(coinTex, new Vector2(400, 390)));
             coins.Add(new Coin(coinTex, new Vector2(450, 390)));
+
             coins.Add(new Coin(coinTex, new Vector2(650, 495)));
+
             coins.Add(new Coin(coinTex, new Vector2(350, 590)));
             coins.Add(new Coin(coinTex, new Vector2(400, 590)));
             coins.Add(new Coin(coinTex, new Vector2(450, 590)));
+
             coins.Add(new Coin(coinTex, new Vector2(100, 690)));
             coins.Add(new Coin(coinTex, new Vector2(150, 690)));
             coins.Add(new Coin(coinTex, new Vector2(200, 690)));
+
             coins.Add(new Coin(coinTex, new Vector2(0, 800)));
             coins.Add(new Coin(coinTex, new Vector2(50, 800)));
             coins.Add(new Coin(coinTex, new Vector2(100, 800)));
@@ -117,6 +111,32 @@ namespace InfinityWar
             coins.Add(new Coin(coinTex, new Vector2(1900, 640)));
             coins.Add(new Coin(coinTex, new Vector2(2150, 640)));
             coins.Add(new Coin(coinTex, new Vector2(2400, 640)));
+        }
+        protected override void LoadContent()
+        {
+            camera = new Camera2D(GraphicsDevice.Viewport);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // TODO: use this.Content to load your game content here
+
+            //hier worden alle objecten op het scherm getoond
+            thorMovingTex = Content.Load<Texture2D>("ThorMoving");
+            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
+
+            enemyTex = Content.Load<Texture2D>("enemy");
+            enemies.Add(new Enemy(enemyTex, new Vector2(100, 640), 100, 200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(350, 585), 350, 450));
+            enemies.Add(new Enemy(enemyTex, new Vector2(350, 385), 350, 450));
+            enemies.Add(new Enemy(enemyTex, new Vector2(100, 295), 100,200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(150, 0), 150, 200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(200, 790), 200, 550));
+
+
+
+
+            coinTex = Content.Load<Texture2D>("coin");
+            AddCoinsStage1();
 
             scoreFont = Content.Load<SpriteFont>("scoreFont");
             scorePos = new Vector2(5, 15);
@@ -165,10 +185,11 @@ namespace InfinityWar
 
             keyTex = Content.Load<Texture2D>("key");
             keys.Add(new Key(keyTex, new Vector2(100, 90)));
-            keys.Add(new Key(keyTex, new Vector2(500, 10)));
 
             mjolnirTex = Content.Load<Texture2D>("mjolnir");
             mjolnir = new Mjolnir(mjolnirTex);
+
+
 
             Tile.Content = Content;
             stage1.DrawLevel1();
@@ -203,39 +224,96 @@ namespace InfinityWar
 
             // TODO: Add your update logic here
             thor.Update(gameTime);
-            mjolnir.Update(graphics, gameTime);
-            mjolnir.Throw(thor.Positie, thor.Texture);
-            // enemiesLevel1[0].Update(gameTime);
+            //for (int i = 0; i < enemies.Count; i++)
+            //{
+            //    enemies[i].Update(gameTime);
+            //    enemies[i].TurnEnemy(gameTime);
+            //}
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(gameTime);
+                enemy.TurnEnemy(gameTime);
+            }
+            
 
+            mjolnir.Update(graphics, gameTime);
+            mjolnir.Throw(thor.Positie, thor.Texture, thor.flipSprite);
+            foreach (Coin coin in coins) //coin laten draaien
+            {
+                coin.Update(gameTime);
+            }
             foreach (CollisionTiles tile in stage1.CollisionTiles)
             {
                 thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 mjolnir.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 camera.Update(thor.Positie, stage1.Width, stage1.Height);
-                enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+
+                //for (int i = 0; i < enemies.Count; i++)
+                //{
+                //    enemies[i].Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                //   // mjolnir.KillEnemy(enemies[i].ViewRectangle, enemies);
+                //    if (mjolnir.ViewRectangle.Intersects(enemies[i].ViewRectangle))
+                //    {
+                //        foreach (Enemy enemy in enemies)
+                //        {
+                //            enemy.isKilled = true;
+                //        }
+                //    }
+                    
+                //}
+                //for (int j = 0; j < enemies.Count; j++)
+                //{
+                //    if (enemies[j].isKilled)
+                //    {
+                //        enemies.RemoveAt(j);
+                //    }
+                //}
                 foreach (Coin coin in coins)
                 {
-
-                    coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                     coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                     if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
                     {
                         coin.isRemoved = true;
+                    }
+                }
+
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                    if(mjolnir.ViewRectangle.Intersects(enemy.ViewRectangle))
+                    {
+                        enemy.isKilled = true;
                     }
                 }
                 if (doorisLocked)
                 {
                     thor.Collision(door.ViewRectangle, stage1.Width, stage1.Height);
                 }
-
                 foreach (Spike spike in spikes)
                 {
 
                     spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                     if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
                     {
-                        System.Console.WriteLine("thor is dood");
+                        coins.Clear();
+                        AddCoinsStage1();
+                        thor.Positie.X = 0;
+                        thor.Positie.Y = 0;
+                        foreach (Key key in keys)
+                        {
+                            key.isTaken = false;
+                        }
+                        keys.Add(new Key(keyTex, new Vector2(100, 90)));
+                        score._score = 0;
+                        doorisLocked = true;
+                        thor.isHurt = true;
+                        if (thor.isHurt)
+                        {
+                            thor.health -= 20;
+                        }
                     }
                 }
+
                 for (int i = 0; i < coins.Count; i++)
                 {
                     if (coins[i].isRemoved)
@@ -244,14 +322,19 @@ namespace InfinityWar
                         score._score++;
                     }
                 }
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (enemies[i].isKilled)
+                    {
+                        enemies.RemoveAt(i);
+                    }
+                }
 
                 foreach (Key key in keys)
                 {
                     if (thor.ViewRectangle.Intersects(key.ViewRectangle))
                     {
                         key.isTaken = true;
-                        keys[1].isVisible = true;
-
                     }
                 }
                 for (int i = 0; i < keys.Count; i++)
@@ -268,10 +351,7 @@ namespace InfinityWar
                 }
 
             }
-            foreach (Coin coin in coins) //coin laten draaien
-            {
-                coin.Update(gameTime);
-            }
+            
 
 
 
@@ -295,7 +375,6 @@ namespace InfinityWar
             //Objeten die niet met de camera bewegen
             spriteBatch.Begin();
             background.Draw(spriteBatch);
-            score.Draw(spriteBatch);
             spriteBatch.End();
 
 
@@ -307,7 +386,8 @@ namespace InfinityWar
                               camera.Transform);
             stage1.Draw(spriteBatch);
             thor.Draw(spriteBatch);
-            foreach (Enemy enemy in enemiesLevel1)
+            
+            foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
             }
@@ -319,13 +399,15 @@ namespace InfinityWar
             {
                 spike.Draw(spriteBatch);
             }
+
             foreach (Key key in keys)
             {
                 if(key.isTaken == false)
                 {
-                    keys[0].Draw(spriteBatch);
+                    key.Draw(spriteBatch);
                 }
             }
+
 
             if(doorisLocked)
             {
@@ -339,13 +421,6 @@ namespace InfinityWar
             //Scoreboard
             spriteBatch.Begin();
             score.Draw(spriteBatch);
-            foreach (Key key in keys)
-            {
-                if (key.isVisible)
-                {
-                    key.Draw(spriteBatch);
-                }
-            }
             spriteBatch.End();
 
 

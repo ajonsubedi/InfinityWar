@@ -75,3 +75,6 @@ C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\spi
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\door.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\key.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\mjolnir.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\heart.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\healthBarGreen.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\healthBarRed.xnb

@@ -21,11 +21,13 @@ namespace InfinityWar.Characters
         int state = 0;
         int nextMoveState = 68;
         int nextIdleState = 52;
+        public bool isHurt = false;
+        public int health;
         public Vector2 OldPosition { get; set; }
 
 
 
-        public Thor(Texture2D texture, Vector2 positie) : base(texture, positie)
+        public Thor(Texture2D texture, Vector2 positie, int nHealth) : base(texture, positie)
         {
             Positie = positie;
             Texture = texture;
@@ -46,7 +48,7 @@ namespace InfinityWar.Characters
                 state += nextIdleState;
             }
             ViewRectangle = new Rectangle((int)positie.X, (int)positie.Y, 68, 59);
-
+            health = nHealth;
 
 
         }
@@ -108,8 +110,9 @@ namespace InfinityWar.Characters
 
 
         public override void Draw(SpriteBatch spriteBatch)
-        {       
-           base.Draw(spriteBatch);
+        {
+            if (health >= 1 || Positie.Y > 0)
+            base.Draw(spriteBatch);
         }
     }
 }

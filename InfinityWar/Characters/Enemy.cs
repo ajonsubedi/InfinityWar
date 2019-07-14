@@ -11,16 +11,18 @@ namespace InfinityWar.Characters
     class Enemy : Character
     {
         public Animation Movement;
-        public Vector2 origin;
-        public float rotation = 0f;
+        public Boolean isKilled = false;
         private SpriteEffects flip;
         int state = 0;
-        int nextMoveState = 68;
+        int nextMoveState = 46;
+        int End, Start;
 
-        public Enemy(Texture2D texture, Vector2 positie) : base(texture, positie)
+        public Enemy(Texture2D texture, Vector2 positie, int start, int end) : base(texture, positie)
         {
             Positie = positie;
             Texture = texture;
+            End = end;
+            Start = start;
             Movement = new Animation();
             for (int i = 0; i < 3; i++)
             {
@@ -35,9 +37,6 @@ namespace InfinityWar.Characters
         public virtual void Update(GameTime gameTime)
         {
             Positie += Velocity;
-            if (Positie.X > ViewRectangle.Width / 3)
-                Positie.X++;
-
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 75, 55);
             if (Velocity.Y < 10)
                 Velocity.Y += 0.4f;
@@ -45,20 +44,20 @@ namespace InfinityWar.Characters
             Movement.Update(gameTime);
         }
 
-        public void MoveEnemyAround(int leftCollision, int rightCollision)
+
+        public void TurnEnemy(GameTime gameTime)
         {
-
-            if (Positie.X == leftCollision)
+            Movement.Update(gameTime);
+            if (Positie.X >= End)
             {
-                Velocity.X--;
                 flip = SpriteEffects.FlipHorizontally;
+                Velocity.X = -1f;
             }
-            else if (Positie.X == rightCollision)
+            else if(Positie.X <= Start)
             {
-                Velocity.X++;
                 flip = SpriteEffects.None;
+                Velocity.X = 1f;
             }
-
         }
 
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)

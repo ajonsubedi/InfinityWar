@@ -12,9 +12,9 @@ namespace InfinityWar
    abstract class Character:Sprite
     {
         protected Animation Movement;
-        protected SpriteEffects flipSprite;
+        public SpriteEffects flipSprite;
         public Color bgColor = Color.Aquamarine;
-        protected Vector2 Velocity = new Vector2(0, 0);
+        public Vector2 Velocity = new Vector2(0, 0);
         public bool isCollide;
         protected Boolean isJumping = false;
 

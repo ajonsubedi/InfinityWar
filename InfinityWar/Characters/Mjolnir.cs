@@ -11,13 +11,12 @@ namespace InfinityWar.Characters
 {
     class Mjolnir
     {
-        public bool isVisible;
+        public Boolean isVisible, hasKilled = false, isMoving = false;
         public int speed;
         public Vector2 Positie, Velocity;
         public Rectangle ViewRectangle;
         public Texture2D Texture;
         public SpriteEffects flipSprite;
-        public Boolean isMoving =false;
         public Controls _controls = new Controls();
         public Mjolnir(Texture2D texture)
         {
@@ -41,7 +40,7 @@ namespace InfinityWar.Characters
 
             
         }
-        public void Throw(Vector2 thorPositie, Texture2D thorTexture)
+        public void Throw(Vector2 thorPositie, Texture2D thorTexture, SpriteEffects thorSprite)
         {
             _controls.Update();
             if (_controls.Throw)
@@ -49,20 +48,37 @@ namespace InfinityWar.Characters
                 Positie.X = thorPositie.X;
                 Positie.Y = thorPositie.Y + thorTexture.Height / 4;
                 isVisible = true;
-                if (_controls.Left)
+                if (thorSprite == SpriteEffects.FlipHorizontally)
                 {
                     Velocity.X = -8f;
                     flipSprite = SpriteEffects.FlipHorizontally;
                 }
 
-                else if (_controls.Right)
+                else if (thorSprite == SpriteEffects.None)
                 {
                     Velocity.X = 8f;
                     flipSprite = SpriteEffects.None;
 
                 }
             }
-            
+        }
+
+        public void KillEnemy(Rectangle enemyRect, List<Enemy> enemies)
+        {
+            if (ViewRectangle.Intersects(enemyRect))
+            {
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.isKilled = true;
+                }
+            }
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].isKilled)
+                {
+                    enemies.RemoveAt(i);
+                }
+            }
         }
 
         public  void Collision(Rectangle newRectangle, int xOffset, int yOffset)

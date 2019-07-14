@@ -59,7 +59,7 @@ namespace InfinityWar.Characters
         {
             Positie += Velocity;
             _controls.Update();
-            Velocity.Y += 0.20f;
+            Velocity.Y += 0.15f;
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 68, 59);
 
 

@@ -12,6 +12,7 @@ namespace InfinityWar
         public bool Left { get; set; }
         public bool Right { get; set; }
         public bool Jump { get; set; }
+        public bool Throw { get; set; }
 
         public void Update()
         {
@@ -44,6 +45,16 @@ namespace InfinityWar
             if (stateKey.IsKeyUp(Keys.Up))
             {
                 Jump = false;
+            }
+
+            //Mjolnir gooien
+            if (stateKey.IsKeyDown(Keys.Space))
+            {
+                Throw = true;
+            }
+            if (stateKey.IsKeyUp(Keys.Space))
+            {
+                Throw = false;
             }
         }
     }

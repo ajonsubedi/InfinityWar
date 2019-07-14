@@ -25,6 +25,8 @@ namespace InfinityWar
             Positie = positie;
         }
 
+       
+
         public virtual void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
             if (ViewRectangle.TouchTopOf(newRectangle))

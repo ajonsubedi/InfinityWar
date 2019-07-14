@@ -11,6 +11,7 @@ namespace InfinityWar.Levels
     class Door : Sprite
     {
         public Vector2 _velocity;
+        public bool isLocked = true;
         public Door(Texture2D texture, Vector2 positie) : base(texture, positie)
         {
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y + 10, 50, 50);
@@ -26,6 +27,7 @@ namespace InfinityWar.Levels
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if(isLocked)
             spriteBatch.Draw(Texture, Positie, Color.White);
         }
     }

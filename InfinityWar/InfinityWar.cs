@@ -112,6 +112,15 @@ namespace InfinityWar
             coins.Add(new Coin(coinTex, new Vector2(2150, 640)));
             coins.Add(new Coin(coinTex, new Vector2(2400, 640)));
         }
+        public void AddEnemiesLevel1()
+        {
+            enemies.Add(new Enemy(enemyTex, new Vector2(100, 640), 100, 200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(350, 585), 350, 450));
+            enemies.Add(new Enemy(enemyTex, new Vector2(350, 385), 350, 450));
+            enemies.Add(new Enemy(enemyTex, new Vector2(100, 295), 100, 200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(150, 0), 150, 200));
+            enemies.Add(new Enemy(enemyTex, new Vector2(200, 790), 200, 550));
+        }
         protected override void LoadContent()
         {
             camera = new Camera2D(GraphicsDevice.Viewport);
@@ -125,18 +134,17 @@ namespace InfinityWar
             thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
 
             enemyTex = Content.Load<Texture2D>("enemy");
-            enemies.Add(new Enemy(enemyTex, new Vector2(100, 640), 100, 200));
-            enemies.Add(new Enemy(enemyTex, new Vector2(350, 585), 350, 450));
-            enemies.Add(new Enemy(enemyTex, new Vector2(350, 385), 350, 450));
-            enemies.Add(new Enemy(enemyTex, new Vector2(100, 295), 100,200));
-            enemies.Add(new Enemy(enemyTex, new Vector2(150, 0), 150, 200));
-            enemies.Add(new Enemy(enemyTex, new Vector2(200, 790), 200, 550));
+            AddEnemiesLevel1();
 
 
 
 
             coinTex = Content.Load<Texture2D>("coin");
             AddCoinsStage1();
+            //foreach (Coin coin in coins)
+            //{
+            //    coin.AddCoinsLevel1(coins, coinTex);
+            //}
 
             scoreFont = Content.Load<SpriteFont>("scoreFont");
             scorePos = new Vector2(5, 15);
@@ -224,18 +232,11 @@ namespace InfinityWar
 
             // TODO: Add your update logic here
             thor.Update(gameTime);
-            //for (int i = 0; i < enemies.Count; i++)
-            //{
-            //    enemies[i].Update(gameTime);
-            //    enemies[i].TurnEnemy(gameTime);
-            //}
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);
                 enemy.TurnEnemy(gameTime);
             }
-            
-
             mjolnir.Update(graphics, gameTime);
             mjolnir.Throw(thor.Positie, thor.Texture, thor.flipSprite);
             foreach (Coin coin in coins) //coin laten draaien
@@ -247,27 +248,6 @@ namespace InfinityWar
                 thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 mjolnir.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                 camera.Update(thor.Positie, stage1.Width, stage1.Height);
-
-                //for (int i = 0; i < enemies.Count; i++)
-                //{
-                //    enemies[i].Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                //   // mjolnir.KillEnemy(enemies[i].ViewRectangle, enemies);
-                //    if (mjolnir.ViewRectangle.Intersects(enemies[i].ViewRectangle))
-                //    {
-                //        foreach (Enemy enemy in enemies)
-                //        {
-                //            enemy.isKilled = true;
-                //        }
-                //    }
-                    
-                //}
-                //for (int j = 0; j < enemies.Count; j++)
-                //{
-                //    if (enemies[j].isKilled)
-                //    {
-                //        enemies.RemoveAt(j);
-                //    }
-                //}
                 foreach (Coin coin in coins)
                 {
                      coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
@@ -276,7 +256,6 @@ namespace InfinityWar
                         coin.isRemoved = true;
                     }
                 }
-
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
@@ -291,12 +270,13 @@ namespace InfinityWar
                 }
                 foreach (Spike spike in spikes)
                 {
-
                     spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                     if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
                     {
                         coins.Clear();
+                        enemies.Clear();
                         AddCoinsStage1();
+                        AddEnemiesLevel1();
                         thor.Positie.X = 0;
                         thor.Positie.Y = 0;
                         foreach (Key key in keys)
@@ -312,6 +292,35 @@ namespace InfinityWar
                             thor.health -= 20;
                         }
                     }
+                }
+
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    foreach (Spike spike in spikes)
+                    {
+                        if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
+                        {
+                            coins.Clear();
+                            enemies.Clear();
+                            AddCoinsStage1();
+                            AddEnemiesLevel1();
+                            thor.Positie.X = 0;
+                            thor.Positie.Y = 0;
+                            foreach (Key key in keys)
+                            {
+                                key.isTaken = false;
+                            }
+                            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+                            score._score = 0;
+                            doorisLocked = true;
+                            thor.isHurt = true;
+                            if (thor.isHurt)
+                            {
+                                thor.health -= 20;
+                            }
+                        }
+                    }
+                    
                 }
 
                 for (int i = 0; i < coins.Count; i++)
@@ -407,8 +416,6 @@ namespace InfinityWar
                     key.Draw(spriteBatch);
                 }
             }
-
-
             if(doorisLocked)
             {
                 door.Draw(spriteBatch);

@@ -44,6 +44,13 @@ namespace InfinityWar.Characters
             Movement.Update(gameTime);
         }
 
+        public void KillThor(Rectangle thorRect)
+        {
+            if (ViewRectangle.Intersects(thorRect)){
+
+            }
+        }
+
 
         public void TurnEnemy(GameTime gameTime)
         {

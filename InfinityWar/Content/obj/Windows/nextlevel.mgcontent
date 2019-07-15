@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/coin.png</SourceFile>
-  <SourceTime>2019-07-10T19:31:12.4475062+02:00</SourceTime>
-  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/coin.xnb</DestFile>
-  <DestTime>2019-07-15T02:27:18.520105+02:00</DestTime>
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/nextlevel.png</SourceFile>
+  <SourceTime>2019-07-15T02:26:57.4604547+02:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/nextlevel.xnb</DestFile>
+  <DestTime>2019-07-15T02:27:19.1763518+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

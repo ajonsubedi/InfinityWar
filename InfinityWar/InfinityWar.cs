@@ -15,7 +15,7 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, gameBackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex;
+        Texture2D thorMovingTex, gameBackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex;
         Thor thor, thorIdle;
         Enemy enemy;
         Stage1 stage1 = new Stage1();
@@ -25,6 +25,7 @@ namespace InfinityWar
         List<Spike> spikes = new List<Spike>();
         List<Key> keys = new List<Key>();
         Door door;
+        NextLevel nextLevel;
         List<Enemy> enemies = new List<Enemy>();
         Mjolnir mjolnir;
         static Score score, finalScore;
@@ -120,6 +121,8 @@ namespace InfinityWar
             enemies.Add(new Enemy(enemyTex, new Vector2(100, 295), 100, 200));
             enemies.Add(new Enemy(enemyTex, new Vector2(150, 0), 150, 200));
             enemies.Add(new Enemy(enemyTex, new Vector2(200, 790), 200, 550));
+            enemies.Add(new Enemy(enemyTex, new Vector2(900, 642), 950, 1300));
+
         }
         protected override void LoadContent()
         {
@@ -197,6 +200,8 @@ namespace InfinityWar
             mjolnirTex = Content.Load<Texture2D>("mjolnir");
             mjolnir = new Mjolnir(mjolnirTex);
 
+            nextLevelTex = Content.Load<Texture2D>("nextlevel");
+            nextLevel = new NextLevel(nextLevelTex, new Vector2(2500, 500));
 
 
             Tile.Content = Content;
@@ -239,6 +244,7 @@ namespace InfinityWar
             }
             mjolnir.Update(graphics, gameTime);
             mjolnir.Throw(thor.Positie, thor.Texture, thor.flipSprite);
+            nextLevel.Update(gameTime);
             foreach (Coin coin in coins) //coin laten draaien
             {
                 coin.Update(gameTime);
@@ -421,7 +427,7 @@ namespace InfinityWar
                 door.Draw(spriteBatch);
             }
             mjolnir.Draw(spriteBatch);
-
+            nextLevel.Draw(spriteBatch);
             spriteBatch.End();
 
 

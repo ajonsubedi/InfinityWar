@@ -5,6 +5,9 @@ ThorIdle:
 ThorMoving:
 	- Rectangle size: 68px width
 			  59px height
+ThorJump:
+	- Rectangle size: 69px width
+			  76px height
 Tile:
 	-Rectangle size: 92px width
 			 24px height

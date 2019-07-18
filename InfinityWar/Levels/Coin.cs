@@ -41,59 +41,7 @@ namespace InfinityWar.Levels
                 _velocity.Y += 0.4f;
         }
 
-        public void AddCoinsLevel1(List<Coin> coins, Texture2D coinTex)
-        {
-            coins.Add(new Coin(coinTex, new Vector2(150, 0)));
-            coins.Add(new Coin(coinTex, new Vector2(200, 0)));
-
-            coins.Add(new Coin(coinTex, new Vector2(100, 300)));
-            coins.Add(new Coin(coinTex, new Vector2(150, 300)));
-            coins.Add(new Coin(coinTex, new Vector2(200, 300)));
-
-            coins.Add(new Coin(coinTex, new Vector2(350, 390)));
-            coins.Add(new Coin(coinTex, new Vector2(400, 390)));
-            coins.Add(new Coin(coinTex, new Vector2(450, 390)));
-
-            coins.Add(new Coin(coinTex, new Vector2(650, 495)));
-
-            coins.Add(new Coin(coinTex, new Vector2(350, 590)));
-            coins.Add(new Coin(coinTex, new Vector2(400, 590)));
-            coins.Add(new Coin(coinTex, new Vector2(450, 590)));
-
-            coins.Add(new Coin(coinTex, new Vector2(100, 690)));
-            coins.Add(new Coin(coinTex, new Vector2(150, 690)));
-            coins.Add(new Coin(coinTex, new Vector2(200, 690)));
-
-            coins.Add(new Coin(coinTex, new Vector2(0, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(50, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(100, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(150, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(200, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(250, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(300, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(350, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(400, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(450, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(500, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(550, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(600, 800)));
-            coins.Add(new Coin(coinTex, new Vector2(700, 690)));
-            coins.Add(new Coin(coinTex, new Vector2(750, 690)));
-            coins.Add(new Coin(coinTex, new Vector2(950, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1000, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1050, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1100, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1150, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1200, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1250, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1300, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1350, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1400, 590)));
-            coins.Add(new Coin(coinTex, new Vector2(1650, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(1900, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(2150, 640)));
-            coins.Add(new Coin(coinTex, new Vector2(2400, 640)));
-        }
+        
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {

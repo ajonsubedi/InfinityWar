@@ -16,16 +16,10 @@ namespace InfinityWar.Characters
     {
         public Controls _controls = new Controls();
         public Boolean isMoving = false;
-        const float gravity = 100f;
-        public Animation Idle;
         int state = 0;
         int nextMoveState = 68;
-        int nextIdleState = 52;
         public bool isHurt = false;
         public int health;
-        public Vector2 OldPosition { get; set; }
-
-
 
         public Thor(Texture2D texture, Vector2 positie, int nHealth) : base(texture, positie)
         {
@@ -39,22 +33,9 @@ namespace InfinityWar.Characters
                 state += nextMoveState;
             }
             Movement.AantalBewegingenPerSeconde = 8;
-
-            ///Animatie als Thor stilstaat
-            Idle = new Animation();
-            for (int i = 0; i < 7; i++)
-            {
-                Idle.AddFrame(new Rectangle(state, 0, 52, 59));
-                state += nextIdleState;
-            }
             ViewRectangle = new Rectangle((int)positie.X, (int)positie.Y, 68, 59);
             health = nHealth;
-
-
         }
-
-        
-
 
 
         public void Update(GameTime gameTime)
@@ -63,7 +44,6 @@ namespace InfinityWar.Characters
             _controls.Update();
             Velocity.Y += 0.15f;
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 68, 59);
-
 
             if (_controls.Left || _controls.Right)
             {
@@ -79,18 +59,15 @@ namespace InfinityWar.Characters
                     Velocity.X = -3f; ;
                     flipSprite = SpriteEffects.FlipHorizontally;
                 }
-
                 else if (_controls.Right)
                 {
                     Velocity.X = 3f;
                     flipSprite = SpriteEffects.None;
-
                 }
                 else
                 {
                     Velocity.X = 0f;
                 }
-
 
                 ///Hier is de code om te springen
                 if(_controls.Jump && !isJumping)
@@ -99,14 +76,8 @@ namespace InfinityWar.Characters
                     Velocity.Y = -6f;
                     isJumping = true;
                 }
-
             }
-
         }
-
-
-
-
 
 
         public override void Draw(SpriteBatch spriteBatch)

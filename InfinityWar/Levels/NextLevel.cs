@@ -11,7 +11,7 @@ namespace InfinityWar.Levels
     class NextLevel : Sprite
     {
         public Animation _animation;
-        public Vector2 _velocity;
+        public Vector2 Velocity;
         public NextLevel(Texture2D texture, Vector2 positie) : base(texture, positie)
         {
             _animation = new Animation();
@@ -24,14 +24,13 @@ namespace InfinityWar.Levels
         {
             ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y + 10, 100, 100);
 
-
             //Coin laten draaien
             _animation.Update(gameTime);
             ViewRectangle.X += 100;
-            if (ViewRectangle.X > 100)
-                ViewRectangle.X = 0;
-            if (_velocity.Y < 100)
-                _velocity.Y += 0.4f;
+            //if (ViewRectangle.X > 100)
+            //    ViewRectangle.X = 0;
+            //if (Velocity.Y < 100)
+            //    Velocity.Y += 0.4f;
         }
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
@@ -39,7 +38,7 @@ namespace InfinityWar.Levels
             if (ViewRectangle.TouchTopOf(newRectangle))
             {
                 // _rectangle.Y = newRectangle.Y - _rectangle.Height;
-                _velocity.Y = 0f;
+                Velocity.Y = 0f;
             }
 
 

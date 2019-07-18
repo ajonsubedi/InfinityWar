@@ -13,6 +13,7 @@ namespace InfinityWar
         public bool Right { get; set; }
         public bool Jump { get; set; }
         public bool Throw { get; set; }
+        public bool Restart { get; set; }
 
         public void Update()
         {
@@ -55,6 +56,16 @@ namespace InfinityWar
             if (stateKey.IsKeyUp(Keys.Space))
             {
                 Throw = false;
+            }
+
+            //Spel herstarten
+            if (stateKey.IsKeyDown(Keys.R))
+            {
+                Restart = true;
+            }
+            if (stateKey.IsKeyUp(Keys.R))
+            {
+                Restart = false;
             }
         }
     }

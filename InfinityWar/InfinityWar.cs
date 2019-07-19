@@ -15,8 +15,9 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex;
+        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex, thanosTex;
         Thor thor;
+        Thanos thanos;
         Stage1 stage1 = new Stage1();
         Stage2 stage2 = new Stage2();
         Camera2D camera;
@@ -29,7 +30,7 @@ namespace InfinityWar
         Door door;
         Mjolnir mjolnir;
         Controls controls = new Controls();
-        bool level1 = true, level2 = false;
+        bool level1 = false, level2 = true;
         static Score score, finalScore;
         static SpriteFont scoreFont, finalScoreFont;
         static Vector2 scorePos, finalScorePos;
@@ -70,56 +71,54 @@ namespace InfinityWar
 
             // TODO: use this.Content to load your game content here
 
-            //hier worden alle objecten op het scherm getoond
+            //Objecten die bij elke level getoond worden
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
-
-            enemyTex = Content.Load<Texture2D>("enemy");
-            stage1.AddEnemiesLevel(enemies, enemyTex);
-
-
-
-
-            coinTex = Content.Load<Texture2D>("coin");
-            stage1.AddCoinsLevel(coins, coinTex);
-
+            mjolnirTex = Content.Load<Texture2D>("mjolnir");
             scoreFont = Content.Load<SpriteFont>("scoreFont");
+            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
             scorePos = new Vector2(5, 15);
             score = new Score(scoreFont, scorePos);
-
-            spikeTex = Content.Load<Texture2D>("spike");
-            stage1.AddSpikes(spikes, spikeTex);
-
-            doorTex = Content.Load<Texture2D>("door");
-            door = new Door(doorTex, new Vector2(700, 700));
-
-            keyTex = Content.Load<Texture2D>("key");
-            keys.Add(new Key(keyTex, new Vector2(100, 90)));
-
-            mjolnirTex = Content.Load<Texture2D>("mjolnir");
             mjolnir = new Mjolnir(mjolnirTex);
-
-            nextLevelTex = Content.Load<Texture2D>("nextlevel");
-
-            nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
-            
-
-
             Tile.Content = Content;
-            stage1.DrawLevel();
-
-            ///Hier worden de achtergronden geïnitialiseerd
 
 
+            //hier worden alle textures opgeladen
+            thanosTex = Content.Load<Texture2D>("Thanos");
+            enemyTex = Content.Load<Texture2D>("enemy");
+            coinTex = Content.Load<Texture2D>("coin");
+            spikeTex = Content.Load<Texture2D>("spike");
+            doorTex = Content.Load<Texture2D>("door");
+            keyTex = Content.Load<Texture2D>("key");
+            nextLevelTex = Content.Load<Texture2D>("nextlevel");
             Level1BackgroundTex = Content.Load<Texture2D>("gameBackground");
             Level2BackgroundTex = Content.Load<Texture2D>("level2BG");
-            backgroundLevel1 = new Background(Level1BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y), 
+
+
+
+            //Objecten voor level 1
+            if (level1)
+            {
+                stage1.AddEnemiesLevel(enemies, enemyTex);
+                stage1.AddCoinsLevel(coins, coinTex);
+                stage1.AddSpikes(spikes, spikeTex);
+                door = new Door(doorTex, new Vector2(700, 700));
+                keys.Add(new Key(keyTex, new Vector2(100, 90)));
+                nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
+                stage1.DrawLevel();
+                backgroundLevel1 = new Background(Level1BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+                        new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            }
+
+            //Objecten voor level 2
+            if (level2)
+            {
+                stage2.AddEnemiesLevel(enemies, enemyTex);
+                stage2.AddCoinsLevel(coins, coinTex);
+                stage2.DrawLevel();
+                thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550);
+                backgroundLevel2 = new Background(Level2BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
                          new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
-            backgroundLevel2 = new Background(Level2BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
-                         new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
-
-
-
+            }
         }
 
         /// <summary>
@@ -143,6 +142,8 @@ namespace InfinityWar
 
             // TODO: Add your update logic here
             
+
+            //Methodes die bij elke level moeten werken
             thor.Update(gameTime);
             controls.Update();
             foreach (Enemy enemy in enemies)
@@ -152,92 +153,6 @@ namespace InfinityWar
             }
             mjolnir.Update(graphics, gameTime);
             mjolnir.Throw(thor.Positie, thor.Texture, thor.flipSprite);
-            foreach (NextLevel nextlevel in nextlevels)
-            {
-                nextlevel.Update(gameTime);
-            }
-            foreach (Coin coin in coins) //coin laten draaien
-            {
-                coin.Update(gameTime);
-            }
-            if (doorIsVisible)
-            {
-                thor.Collision(door.ViewRectangle, stage1.Width, stage1.Height);
-            }
-
-            //Level 1 herstarten als thor de enemy raakt
-            if (level1)
-            {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
-                    {
-                        coins.Clear();
-                        enemies.Clear();
-                        stage1.AddCoinsLevel(coins, coinTex);
-                        stage1.AddEnemiesLevel(enemies, enemyTex);
-                        thor.Positie.X = 0;
-                        thor.Positie.Y = 0;
-                        foreach (Key key in keys)
-                        {
-                            key.isTaken = false;
-                        }
-                        keys.Add(new Key(keyTex, new Vector2(100, 90)));
-                        score._score = 0;
-                        doorIsVisible = true;
-                        thor.isHurt = true;
-                        if (thor.isHurt)
-                        {
-                            thor.health -= 20;
-                        }
-                    }
-                }
-            }
-            
-
-            //Level 2 herstarten als thor de enemy aanraakt
-            if (level2)
-            {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
-                    {
-                        coins.Clear();
-                        enemies.Clear();
-                        stage2.AddCoinsLevel(coins, coinTex);
-                        stage2.AddEnemiesLevel(enemies, enemyTex);
-                        thor.Positie.X = 0;
-                        thor.Positie.Y = 600;
-                        score._score = level1Coins;
-                    }
-                }
-            }
-
-            //Level 1 herstarten als je op de knop "R" drukt
-            if (controls.Restart)
-            {
-                coins.Clear();
-                enemies.Clear();
-                stage1.AddCoinsLevel(coins, coinTex);
-                stage1.AddEnemiesLevel(enemies, enemyTex);
-                thor.Positie.X = 0;
-                thor.Positie.Y = 0;
-                foreach (Key key in keys)
-                {
-                    key.isTaken = false;
-                }
-                keys.Add(new Key(keyTex, new Vector2(100, 90)));
-                score._score = 0;
-                doorIsVisible = true;
-                thor.isHurt = true;
-                if (thor.isHurt)
-                {
-                    thor.health -= 20;
-                }
-            }
-
-
-
             //Objecten laten verwijderen bij aanraking
             for (int i = 0; i < coins.Count; i++)
             {
@@ -255,51 +170,30 @@ namespace InfinityWar
                 }
             }
 
-            foreach (Key key in keys)
+            foreach (Coin coin in coins) //coin laten draaien
             {
-                if (thor.ViewRectangle.Intersects(key.ViewRectangle))
-                {
-                    key.isTaken = true;
-                }
+                coin.Update(gameTime);
             }
-            for (int i = 0; i < keys.Count; i++)
+
+            
+
+            //Methodes die gelden voor level 1
+            if (level1)
             {
-                if (keys[i].isTaken)
+                foreach (NextLevel nextlevel in nextlevels)
                 {
-                    keys.RemoveAt(i);
-                    doorIsVisible = false;
-                    if (thor.ViewRectangle.Intersects(door.ViewRectangle))
-                    {
-                        door.isLocked = false;
-                    }
+                    nextlevel.Update(gameTime);
                 }
-            }
-            foreach (CollisionTiles tile in stage1.CollisionTiles)
-            {
-                thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                mjolnir.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                camera.Update(thor.Positie, stage1.Width, stage1.Height);
-                foreach (Coin coin in coins)
+                if (doorIsVisible)
                 {
-                     coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
-                    {
-                        coin.isRemoved = true;
-                    }
+                    thor.Collision(door.ViewRectangle, stage1.Width, stage1.Height);
                 }
-                foreach (Enemy enemy in enemies)
+
+
+                //Level 1 herstarten als thor de enemy raakt
+                for (int i = 0; i < enemies.Count; i++)
                 {
-                    enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if(mjolnir.ViewRectangle.Intersects(enemy.ViewRectangle))
-                    {
-                        enemy.isKilled = true;
-                    }
-                }
-                //Level 1 herstarten als thor de naalden raakt
-                foreach (Spike spike in spikes)
-                {
-                    spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
+                    if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
                     {
                         coins.Clear();
                         enemies.Clear();
@@ -321,27 +215,147 @@ namespace InfinityWar
                         }
                     }
                 }
-            }
 
-            foreach (CollisionTiles tile in stage2.CollisionTiles)
-            {
-                thor.Collision(tile.Rectangle, stage2.Width, stage2.Height);
-                mjolnir.Collision(tile.Rectangle, stage2.Width, stage2.Height);
-                camera.Update(thor.Positie, stage2.Width, stage2.Height);
-                foreach (Coin coin in coins)
+                //Level 1 herstarten als je op de knop "R" drukt
+                if (controls.Restart)
                 {
-                    coin.Collision(tile.Rectangle, stage2.Width, stage2.Height);
-                    if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
+                    coins.Clear();
+                    enemies.Clear();
+                    stage1.AddCoinsLevel(coins, coinTex);
+                    stage1.AddEnemiesLevel(enemies, enemyTex);
+                    thor.Positie.X = 0;
+                    thor.Positie.Y = 0;
+                    foreach (Key key in keys)
                     {
-                        coin.isRemoved = true;
+                        key.isTaken = false;
+                    }
+                    keys.Add(new Key(keyTex, new Vector2(100, 90)));
+                    score._score = 0;
+                    doorIsVisible = true;
+                    thor.isHurt = true;
+                    if (thor.isHurt)
+                    {
+                        thor.health -= 20;
                     }
                 }
-                foreach (Enemy enemy in enemies)
+
+                foreach (CollisionTiles tile in stage1.CollisionTiles)
                 {
-                    enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
-                    if (mjolnir.ViewRectangle.Intersects(enemy.ViewRectangle))
+                    thor.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                    mjolnir.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                    camera.Update(thor.Positie, stage1.Width, stage1.Height);
+                    foreach (Coin coin in coins)
                     {
-                        enemy.isKilled = true;
+                        coin.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                        if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
+                        {
+                            coin.isRemoved = true;
+                        }
+                    }
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                        if (mjolnir.ViewRectangle.Intersects(enemy.ViewRectangle))
+                        {
+                            enemy.isKilled = true;
+                        }
+                    }
+                    //Level 1 herstarten als thor de naalden raakt
+                    foreach (Spike spike in spikes)
+                    {
+                        spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
+                        if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
+                        {
+                            coins.Clear();
+                            enemies.Clear();
+                            stage1.AddCoinsLevel(coins, coinTex);
+                            stage1.AddEnemiesLevel(enemies, enemyTex);
+                            thor.Positie.X = 0;
+                            thor.Positie.Y = 0;
+                            foreach (Key key in keys)
+                            {
+                                key.isTaken = false;
+                            }
+                            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+                            score._score = 0;
+                            doorIsVisible = true;
+                            thor.isHurt = true;
+                            if (thor.isHurt)
+                            {
+                                thor.health -= 20;
+                            }
+                        }
+                    }
+
+                }
+               
+
+                foreach (Key key in keys)
+                {
+                    if (thor.ViewRectangle.Intersects(key.ViewRectangle))
+                    {
+                        key.isTaken = true;
+                    }
+                }
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    if (keys[i].isTaken)
+                    {
+                        keys.RemoveAt(i);
+                        doorIsVisible = false;
+                        if (thor.ViewRectangle.Intersects(door.ViewRectangle))
+                        {
+                            door.isLocked = false;
+                        }
+                    }
+                }
+            }
+
+
+
+
+            //Methodes die gelden voor level 2
+            if (level2)
+            {
+                thanos.Update(gameTime);
+                thanos.TurnEnemy(gameTime);
+
+                //Het spel herstarten
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
+                    {
+                        coins.Clear();
+                        enemies.Clear();
+                        stage2.AddCoinsLevel(coins, coinTex);
+                        stage2.AddEnemiesLevel(enemies, enemyTex);
+                        thor.Positie.X = 0;
+                        thor.Positie.Y = 600;
+                        score._score = level1Coins;
+                    }
+                }
+
+                foreach (CollisionTiles tile in stage2.CollisionTiles)
+                {
+                    thor.Collision(tile.Rectangle, stage2.Width, stage2.Height);
+                    mjolnir.Collision(tile.Rectangle, stage2.Width, stage2.Height);
+                    thanos.Collision(tile.Rectangle, stage2.Width, stage2.Height);
+                    camera.Update(thor.Positie, stage2.Width, stage2.Height);
+                    foreach (Coin coin in coins)
+                    {
+                        coin.Collision(tile.Rectangle, stage2.Width, stage2.Height);
+                        if (thor.ViewRectangle.Intersects(coin.ViewRectangle))
+                        {
+                            coin.isRemoved = true;
+                        }
+                    }
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.Collision(tile.Rectangle, stage2.Width, stage2.Height);
+                        if (mjolnir.ViewRectangle.Intersects(enemy.ViewRectangle))
+                        {
+                            enemy.isKilled = true;
+                        }
                     }
                 }
             }
@@ -369,14 +383,6 @@ namespace InfinityWar
                     level1Coins = score._score;
                 }
             }
-
-
-
-
-
-
-
-
             base.Update(gameTime);
         }
 
@@ -406,10 +412,10 @@ namespace InfinityWar
                               BlendState.AlphaBlend,
                               null, null, null, null,
                               camera.Transform);
-            stage1.Draw(spriteBatch);
-            stage2.Draw(spriteBatch);
+
+            //Objecten die worden getekend in elke level
             thor.Draw(spriteBatch);
-            
+
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
@@ -418,26 +424,39 @@ namespace InfinityWar
             {
                 coin.Draw(spriteBatch);
             }
-            foreach (Spike spike in spikes)
-            {
-                spike.Draw(spriteBatch);
-            }
+            mjolnir.Draw(spriteBatch);
 
-            foreach (Key key in keys)
+
+            //Objecten die worden getekend in level 1
+            if (level1)
             {
-                if(key.isTaken == false)
+                stage1.Draw(spriteBatch);
+                foreach (Spike spike in spikes)
                 {
-                    key.Draw(spriteBatch);
+                    spike.Draw(spriteBatch);
+                }
+                foreach (Key key in keys)
+                {
+                    if (key.isTaken == false)
+                    {
+                        key.Draw(spriteBatch);
+                    }
+                }
+                if (doorIsVisible)
+                {
+                    door.Draw(spriteBatch);
+                }
+                foreach (NextLevel nextlevel in nextlevels)
+                {
+                    nextlevel.Draw(spriteBatch);
                 }
             }
-            if(doorIsVisible)
+
+            //Objecten die worden getekend in level 2
+            if (level2)
             {
-                door.Draw(spriteBatch);
-            }
-            mjolnir.Draw(spriteBatch);
-            foreach (NextLevel nextlevel in nextlevels)
-            {
-                nextlevel.Draw(spriteBatch);
+                stage2.Draw(spriteBatch);
+                thanos.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
             }
             spriteBatch.End();
 

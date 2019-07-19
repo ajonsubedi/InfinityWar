@@ -8,15 +8,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace InfinityWar.Characters
 {
-    class Enemy : Character
+    class Thanos : Character
     {
         public Boolean isKilled = false;
-        private SpriteEffects flip;
         public int state = 0;
-        public int nextMoveState = 46;
+        public int nextMoveState = 74;
         public int End, Start;
+        private SpriteEffects flip;
 
-        public Enemy(Texture2D texture, Vector2 positie, int start, int end) : base(texture, positie)
+        public Thanos(Texture2D texture, Vector2 positie, int end, int start) : base(texture, positie)
         {
             Positie = positie;
             Texture = texture;
@@ -25,22 +25,22 @@ namespace InfinityWar.Characters
             Movement = new Animation();
             for (int i = 0; i < 3; i++)
             {
-                Movement.AddFrame(new Rectangle(state, 0, 46, 48));
+                Movement.AddFrame(new Rectangle(state, 0, 74, 97));
                 state += nextMoveState;
             }
-            Movement.AantalBewegingenPerSeconde = 8;
-
+            Movement.AantalBewegingenPerSeconde = 2;
             flip = SpriteEffects.None;
         }
 
         public override void Update(GameTime gameTime)
         {
             Positie += Velocity;
-            ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 46, 48);
+            ViewRectangle = new Rectangle((int)Positie.X, (int)Positie.Y, 74, 97);
             if (Velocity.Y < 10)
                 Velocity.Y += 0.4f;
 
             Movement.Update(gameTime);
+            base.Update(gameTime);
         }
 
         public void TurnEnemy(GameTime gameTime)
@@ -51,13 +51,12 @@ namespace InfinityWar.Characters
                 flip = SpriteEffects.FlipHorizontally;
                 Velocity.X = -1f;
             }
-            else if(Positie.X <= Start)
+            else if (Positie.X <= Start)
             {
                 flip = SpriteEffects.None;
                 Velocity.X = 1f;
             }
         }
-
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
             Rectangle destinationRect = new Rectangle((int)Positie.X, (int)Positie.Y, Movement.CurrentFrame.SourceRectangle.Width, Movement.CurrentFrame.SourceRectangle.Height);

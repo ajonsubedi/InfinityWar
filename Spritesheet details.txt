@@ -14,3 +14,6 @@ Tile:
 Enemy: 
 	-Rectangle size: 46px width
 		         48px height
+
+Thanos:	-Rectangle size: 74 width
+			 97 height

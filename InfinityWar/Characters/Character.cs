@@ -25,6 +25,10 @@ namespace InfinityWar
             Positie = positie;
         }
 
+        public virtual void Update(GameTime gameTime)
+        {
+           
+        }
        
 
         public virtual void Collision(Rectangle newRectangle, int xOffset, int yOffset)

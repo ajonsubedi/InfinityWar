@@ -47,6 +47,7 @@
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\Enemy.cs" />
     <Compile Include="Characters\Mjolnir.cs" />
+    <Compile Include="Characters\Thanos.cs" />
     <Compile Include="Characters\Thor.cs" />
     <Compile Include="Collision\RectangleHelper.cs" />
     <Compile Include="Controls.cs" />

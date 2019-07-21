@@ -104,7 +104,7 @@ namespace InfinityWar.Levels
             enemies.Add(new Enemy(enemyTex, new Vector2(100, 295), 100, 200));
             enemies.Add(new Enemy(enemyTex, new Vector2(150, 0), 150, 200));
             enemies.Add(new Enemy(enemyTex, new Vector2(200, 790), 200, 550));
-            enemies.Add(new Enemy(enemyTex, new Vector2(900, 642), 950, 1300));
+            enemies.Add(new Enemy(enemyTex, new Vector2(900, 400), 950, 1300));
 
         }
 

@@ -30,7 +30,7 @@ namespace InfinityWar
         Door door;
         Mjolnir mjolnir;
         Controls controls = new Controls();
-        bool level1 = false, level2 = true;
+        bool level1 = true, level2 = false;
         static Score score, finalScore;
         static SpriteFont scoreFont, finalScoreFont;
         static Vector2 scorePos, finalScorePos;
@@ -80,6 +80,7 @@ namespace InfinityWar
             score = new Score(scoreFont, scorePos);
             mjolnir = new Mjolnir(mjolnirTex);
             Tile.Content = Content;
+            
 
 
             //hier worden alle textures opgeladen
@@ -93,11 +94,11 @@ namespace InfinityWar
             Level1BackgroundTex = Content.Load<Texture2D>("gameBackground");
             Level2BackgroundTex = Content.Load<Texture2D>("level2BG");
 
+            backgroundLevel2 = new Background(Level2BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+             new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            backgroundLevel1 = new Background(Level1BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+            new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
-
-            //Objecten voor level 1
-            if (level1)
-            {
                 stage1.AddEnemiesLevel(enemies, enemyTex);
                 stage1.AddCoinsLevel(coins, coinTex);
                 stage1.AddSpikes(spikes, spikeTex);
@@ -105,20 +106,11 @@ namespace InfinityWar
                 keys.Add(new Key(keyTex, new Vector2(100, 90)));
                 nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
                 stage1.DrawLevel();
-                backgroundLevel1 = new Background(Level1BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
-                        new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
-            }
 
-            //Objecten voor level 2
-            if (level2)
-            {
                 stage2.AddEnemiesLevel(enemies, enemyTex);
                 stage2.AddCoinsLevel(coins, coinTex);
                 stage2.DrawLevel();
-                thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550);
-                backgroundLevel2 = new Background(Level2BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
-                         new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
-            }
+                thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550, 100);
         }
 
         /// <summary>
@@ -319,6 +311,8 @@ namespace InfinityWar
             {
                 thanos.Update(gameTime);
                 thanos.TurnEnemy(gameTime);
+                thanos.GetDamage(mjolnir.ViewRectangle);
+                
 
                 //Het spel herstarten
                 for (int i = 0; i < enemies.Count; i++)
@@ -356,6 +350,10 @@ namespace InfinityWar
                         {
                             enemy.isKilled = true;
                         }
+                    }
+                    if (thanos.health <= 0)
+                    {
+                        thor.Positie.X = 0;
                     }
                 }
             }

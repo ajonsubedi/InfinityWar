@@ -15,8 +15,9 @@ namespace InfinityWar.Characters
         public int nextMoveState = 74;
         public int End, Start;
         private SpriteEffects flip;
+        public int health;
 
-        public Thanos(Texture2D texture, Vector2 positie, int end, int start) : base(texture, positie)
+        public Thanos(Texture2D texture, Vector2 positie, int end, int start, int nHealth) : base(texture, positie)
         {
             Positie = positie;
             Texture = texture;
@@ -30,6 +31,7 @@ namespace InfinityWar.Characters
             }
             Movement.AantalBewegingenPerSeconde = 2;
             flip = SpriteEffects.None;
+            health = nHealth;
         }
 
         public override void Update(GameTime gameTime)
@@ -55,6 +57,16 @@ namespace InfinityWar.Characters
             {
                 flip = SpriteEffects.None;
                 Velocity.X = 1f;
+            }
+        }
+
+        public void GetDamage(Rectangle mjolnirRect)
+        {
+            if (mjolnirRect.Intersects(ViewRectangle))
+            {
+                health--;
+                Console.WriteLine("Thanos is hurt");
+                Console.WriteLine(health);
             }
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)

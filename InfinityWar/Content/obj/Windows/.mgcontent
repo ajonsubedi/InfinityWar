@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/back.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/coin.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/door.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/enemy.png</File>
@@ -11,7 +12,7 @@
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/healthBarGreen.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/healthBarRed.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/heart.png</File>
-    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/infoButton.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/instructionBG.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/instructionButton.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/key.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/level2BG.png</File>

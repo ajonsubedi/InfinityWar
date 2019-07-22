@@ -1,6 +1,7 @@
 ﻿using InfinityWar.Characters;
 using InfinityWar.Level;
 using InfinityWar.Levels;
+using InfinityWar.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,13 +16,13 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex, thanosTex;
+        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex,backTex, mainMenuBGTex, instructionsBGTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex, thanosTex, playButtonTex, instructTex;
         Thor thor;
         Thanos thanos;
         Stage1 stage1 = new Stage1();
         Stage2 stage2 = new Stage2();
         Camera2D camera;
-        Background backgroundLevel1, backgroundLevel2;
+        Background backgroundLevel1, backgroundLevel2, mainMenu, instructions;
         List<Coin> coins = new List<Coin>();
         List<Spike> spikes = new List<Spike>();
         List<Key> keys = new List<Key>();
@@ -29,6 +30,7 @@ namespace InfinityWar
         List<Enemy> enemies = new List<Enemy>();
         Door door;
         Mjolnir mjolnir;
+        Button playButton, instructionButton, backButton;
         Controls controls = new Controls();
         bool level1 = true, level2 = false;
         static Score score, finalScore;
@@ -36,11 +38,22 @@ namespace InfinityWar
         static Vector2 scorePos, finalScorePos;
         bool doorIsVisible = true;
         int level1Coins;
+        enum GameState //GameState bepalen
+        {
+            MainMenu,
+            Instructions,
+            Playing,
+            Pause,
+            EndGame
+        }
+        string state;
+        GameState CurrentGameState = GameState.MainMenu;
 
 
         public InfinityWar()
         {
             graphics = new GraphicsDeviceManager(this);
+            this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
 
@@ -62,7 +75,7 @@ namespace InfinityWar
         /// all of your content.
         /// </summary>
         /// 
-        
+
         protected override void LoadContent()
         {
             camera = new Camera2D(GraphicsDevice.Viewport);
@@ -70,18 +83,6 @@ namespace InfinityWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
-            //Objecten die bij elke level getoond worden
-            thorMovingTex = Content.Load<Texture2D>("ThorMoving");
-            mjolnirTex = Content.Load<Texture2D>("mjolnir");
-            scoreFont = Content.Load<SpriteFont>("scoreFont");
-            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
-            scorePos = new Vector2(5, 15);
-            score = new Score(scoreFont, scorePos);
-            mjolnir = new Mjolnir(mjolnirTex);
-            Tile.Content = Content;
-            
-
 
             //hier worden alle textures opgeladen
             thanosTex = Content.Load<Texture2D>("Thanos");
@@ -93,25 +94,104 @@ namespace InfinityWar
             nextLevelTex = Content.Load<Texture2D>("nextlevel");
             Level1BackgroundTex = Content.Load<Texture2D>("gameBackground");
             Level2BackgroundTex = Content.Load<Texture2D>("level2BG");
+            mainMenuBGTex = Content.Load<Texture2D>("mainmenu");
+            instructionsBGTex = Content.Load<Texture2D>("instructionBG");
+            thorMovingTex = Content.Load<Texture2D>("ThorMoving");
+            mjolnirTex = Content.Load<Texture2D>("mjolnir");
+            scoreFont = Content.Load<SpriteFont>("scoreFont");
+            playButtonTex = Content.Load<Texture2D>("playButton");
+            instructTex = Content.Load<Texture2D>("instructionButton");
+            backTex = Content.Load<Texture2D>("back");
 
+            //MainMenuButtons
+            playButton = new Button(playButtonTex)
+            {
+                Positie = new Vector2(50, 50),
+                Text = "Play Game"
+            };
+            
+            
+            instructionButton = new Button(instructTex)
+            {
+                Positie = new Vector2(50, 160),
+                Text = "Instructions"
+            };
+            
+            
+
+            backButton = new Button(backTex)
+            {
+                Positie = new Vector2(0, 0),
+                Text = "Back"
+            };
+
+
+
+            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
+            scorePos = new Vector2(5, 15);
+            score = new Score(scoreFont, scorePos);
+            mjolnir = new Mjolnir(mjolnirTex);
+            Tile.Content = Content;
+            
             backgroundLevel2 = new Background(Level2BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
              new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
             backgroundLevel1 = new Background(Level1BackgroundTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
             new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            mainMenu = new Background(mainMenuBGTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+            new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            instructions = new Background(instructionsBGTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+            new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
-                stage1.AddEnemiesLevel(enemies, enemyTex);
-                stage1.AddCoinsLevel(coins, coinTex);
-                stage1.AddSpikes(spikes, spikeTex);
-                door = new Door(doorTex, new Vector2(700, 700));
-                keys.Add(new Key(keyTex, new Vector2(100, 90)));
-                nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
-                stage1.DrawLevel();
+            stage1.AddEnemiesLevel(enemies, enemyTex);
+            stage1.AddCoinsLevel(coins, coinTex);
+            stage1.AddSpikes(spikes, spikeTex);
+            door = new Door(doorTex, new Vector2(700, 700));
+            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+            nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
+            stage1.DrawLevel();
 
+            if (level2)
+            {
                 stage2.AddEnemiesLevel(enemies, enemyTex);
                 stage2.AddCoinsLevel(coins, coinTex);
                 stage2.DrawLevel();
-                thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550, 100);
+            }
+            thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550, 100);
         }
+
+        private void BackButton_Click(object sender, System.EventArgs e)
+        {
+            System.Console.WriteLine("Back button is gedrukt");
+        }
+
+        private void InstructionButton_Click(object sender, System.EventArgs e)
+        {
+            CurrentGameState = GameState.Instructions;
+            System.Console.WriteLine("instructions button is gedrukt");
+        }
+
+        private void PlayButton_Click(object sender, System.EventArgs e)
+        {
+           // state = "play";
+            System.Console.WriteLine("play button is gedrukt");
+        }
+
+        public void ChangeGameState()
+        {
+            switch (state)
+            {
+                case "play":
+                    CurrentGameState = GameState.Playing;
+                    break;
+                case "instruction":
+                    CurrentGameState = GameState.Instructions;
+                    break;
+                case "back":
+                    CurrentGameState = GameState.MainMenu;
+                    break;
+            }
+        }
+        
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -133,11 +213,31 @@ namespace InfinityWar
                 Exit();
 
             // TODO: Add your update logic here
-            
 
+            MouseState mouse = Mouse.GetState();
             //Methodes die bij elke level moeten werken
+            if (playButton.Clicked)
+            {
+                CurrentGameState = GameState.Playing;
+                System.Console.WriteLine("playyyyyyyyyyyyy");
+                playButton.Update(gameTime);
+            }
+            if (instructionButton.Clicked)
+            {
+                CurrentGameState = GameState.Instructions;
+                System.Console.WriteLine("instructttttttttt");
+            }
+            if (backButton.Clicked)
+            {
+                CurrentGameState = GameState.MainMenu;
+                System.Console.WriteLine("backkkkkkkkkkkkk");
+            }
+            ChangeGameState();
             thor.Update(gameTime);
             controls.Update();
+            //playButton.Update(gameTime);
+            instructionButton.Update(gameTime);
+            backButton.Update(gameTime);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);
@@ -394,75 +494,100 @@ namespace InfinityWar
 
             // TODO: Add your drawing code here
 
-            //Objeten die niet met de camera bewegen
-            spriteBatch.Begin();
-            if(level1)
-            backgroundLevel1.Draw(spriteBatch);
-
-            if (level2)
-                backgroundLevel2.Draw(spriteBatch);
-            spriteBatch.End();
-
-
-
-            //canvas voor game
-            spriteBatch.Begin(SpriteSortMode.Deferred,
-                              BlendState.AlphaBlend,
-                              null, null, null, null,
-                              camera.Transform);
-
-            //Objecten die worden getekend in elke level
-            thor.Draw(spriteBatch);
-
-            foreach (Enemy enemy in enemies)
+            //GAME STATES DRAW
+            switch (CurrentGameState)
             {
-                enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
-            }
-            foreach (Coin coin in coins)
-            {
-                coin.Draw(spriteBatch);
-            }
-            mjolnir.Draw(spriteBatch);
+                case GameState.MainMenu:
+                    spriteBatch.Begin();
+                    mainMenu.Draw(spriteBatch);
+                    playButton.Draw(spriteBatch);
+                    instructionButton.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameState.Playing:
+                    //Objeten die niet met de camera bewegen
+                    spriteBatch.Begin();
+                    if (level1)
+                        backgroundLevel1.Draw(spriteBatch);
+
+                    if (level2)
+                        backgroundLevel2.Draw(spriteBatch);
+                    spriteBatch.End();
 
 
-            //Objecten die worden getekend in level 1
-            if (level1)
-            {
-                stage1.Draw(spriteBatch);
-                foreach (Spike spike in spikes)
-                {
-                    spike.Draw(spriteBatch);
-                }
-                foreach (Key key in keys)
-                {
-                    if (key.isTaken == false)
+
+                    //canvas voor game
+                    spriteBatch.Begin(SpriteSortMode.Deferred,
+                                      BlendState.AlphaBlend,
+                                      null, null, null, null,
+                                      camera.Transform);
+
+                    //Objecten die worden getekend in elke level
+
+                    thor.Draw(spriteBatch);
+
+                    foreach (Enemy enemy in enemies)
                     {
-                        key.Draw(spriteBatch);
+                        enemy.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
                     }
-                }
-                if (doorIsVisible)
-                {
-                    door.Draw(spriteBatch);
-                }
-                foreach (NextLevel nextlevel in nextlevels)
-                {
-                    nextlevel.Draw(spriteBatch);
-                }
+                    foreach (Coin coin in coins)
+                    {
+                        coin.Draw(spriteBatch);
+                    }
+                    mjolnir.Draw(spriteBatch);
+
+
+                    //Objecten die worden getekend in level 1
+                    if (level1)
+                    {
+                        stage1.Draw(spriteBatch);
+                        foreach (Spike spike in spikes)
+                        {
+                            spike.Draw(spriteBatch);
+                        }
+                        foreach (Key key in keys)
+                        {
+                            if (key.isTaken == false)
+                            {
+                                key.Draw(spriteBatch);
+                            }
+                        }
+                        if (doorIsVisible)
+                        {
+                            door.Draw(spriteBatch);
+                        }
+                        foreach (NextLevel nextlevel in nextlevels)
+                        {
+                            nextlevel.Draw(spriteBatch);
+                        }
+                    }
+
+                    //Objecten die worden getekend in level 2
+                    if (level2)
+                    {
+                        stage2.Draw(spriteBatch);
+                        thanos.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
+                    }
+                    spriteBatch.End();
+
+                    //Scoreboard
+                    spriteBatch.Begin();
+                    score.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameState.Instructions:
+                    spriteBatch.Begin();
+                    instructions.Draw(spriteBatch);
+                    backButton.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameState.Pause:
+                    break;
+                case GameState.EndGame:
+                    break;
             }
 
-            //Objecten die worden getekend in level 2
-            if (level2)
-            {
-                stage2.Draw(spriteBatch);
-                thanos.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
-            }
-            spriteBatch.End();
-
-
-            //Scoreboard
-            spriteBatch.Begin();
-            score.Draw(spriteBatch);
-            spriteBatch.End();
+            
 
 
             base.Draw(gameTime);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/playButton.png</SourceFile>
-  <SourceTime>2019-07-15T18:52:38.4681762+02:00</SourceTime>
+  <SourceTime>2019-07-22T02:34:35.442949+02:00</SourceTime>
   <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/Content/playButton.xnb</DestFile>
-  <DestTime>2019-07-15T19:06:51.9554145+02:00</DestTime>
+  <DestTime>2019-07-22T02:36:40.4891006+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

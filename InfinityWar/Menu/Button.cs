@@ -13,88 +13,56 @@ namespace InfinityWar.Menu
 {
     class Button
     {
-        Texture2D Texture;
-        Vector2 Positie;
-        public  Rectangle Rectangle;
-        enum GameState //Gamestate wordt bepaald
+        //Dit is een klasse dat wordt gebruikt om buttons aan te maken. Hiervoor heb ik hulp gehad langs de volgende link --> https://www.youtube.com/watch?v=lcrgj26G5Hg
+        private MouseState mouse;
+        private bool isHovering;
+        private Texture2D texture;
+
+        public event EventHandler Click;
+        public bool Clicked { get;set; }
+        public Vector2 Positie { get; set; }
+        public Rectangle Rectangle
         {
-            MainMenu,
-            Playing,
-            Instructions,
-            Info,
-            GameOver
+            get { return new Rectangle((int)Positie.X, (int)Positie.Y, texture.Width, texture.Height); }
         }
-        GameState CurrentGameState = GameState.MainMenu;
+        public string Text { get; set; }
 
-
-        Color colour = new Color(255, 255, 255, 255);
-
-        public Vector2 size;
-        public Button(Texture2D texture, GraphicsDevice graphics)
+        public Button(Texture2D nTexture)
         {
-            Texture = texture;
-            size = new Vector2(graphics.Viewport.Width / (int)9.6, graphics.Viewport.Height / (int)5.4);
-        }
-
-        bool down;
-        public bool isClicked;
-        public void Update(MouseState mouse)
-        {
-            Rectangle = new Rectangle((int)Positie.X, (int)Positie.Y, (int)size.X, (int)size.Y);
-            Rectangle mouseRect = new Rectangle(mouse.X, mouse.Y, 1, 1);
-
-            if (mouseRect.Intersects(Rectangle))
-            {
-                if (colour.A == 255) down = false;
-                if (colour.A == 0) down = true;
-                if (down) colour.A += 3; else colour.A -= 3;
-                if (mouse.LeftButton == ButtonState.Pressed) isClicked = true;
-            }
-
-            else if(colour.A < 255)
-            {
-                colour.A += 3;
-                isClicked = false;
-            }
-        }
-
-        public void setPosition(Vector2 newPosition)
-        {
-            Positie = newPosition;
-        }
-
-        public void ChangingGameState(Button play, Button instruction,Button info, Thor thor, List<Coin> coins, Stage1 stage1) //Van state veranderen, bv. Menu, Game Over, Instructions en Playing
-        {
-            MouseState mouse = Mouse.GetState();
-            switch (CurrentGameState)
-            {
-                case GameState.MainMenu:
-                    if (play.isClicked == true) CurrentGameState = GameState.Playing;
-                    play.Update(mouse);
-
-                    if (instruction.isClicked == true) CurrentGameState = GameState.Instructions;
-                    instruction.Update(mouse);
-                    break;
-                case GameState.Playing:
-                    if (thor.health < 0)
-                    {
-                        CurrentGameState = GameState.GameOver;
-                        coins.Clear();
-                        // AddCoinsLevel1();
-                        stage1.ClearMap();
-                        stage1.DrawLevel();
-                    }
-                    break;
-                case GameState.Instructions:
-                    if (info.isClicked == true) CurrentGameState = GameState.Info;
-                    info.Update(mouse);
-                    break;
-            }
+            texture = nTexture;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Rectangle, colour);
+            var colour = Color.White;
+            if (isHovering)
+                colour = Color.Gray;
+            spriteBatch.Draw(texture, Rectangle, colour);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            mouse = Mouse.GetState();
+            var mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
+            isHovering = false;
+            if (mouseRectangle.Intersects(Rectangle))
+            {
+                isHovering = true;
+            }
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                Clicked = true;
+            }
+            else
+                Clicked = false;
+
+            //if(currentMouse.LeftButton == ButtonState.Released && previousMouse.LeftButton == ButtonState.Pressed)
+            //{
+            //   // Click.Invoke(this, new EventArgs());
+            //    if (Click != null)
+            //        Click(this, new EventArgs());
+            //}
+
         }
     }
 }

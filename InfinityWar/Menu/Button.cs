@@ -14,11 +14,18 @@ namespace InfinityWar.Menu
     class Button
     {
         //Dit is een klasse dat wordt gebruikt om buttons aan te maken. Hiervoor heb ik hulp gehad langs de volgende link --> https://www.youtube.com/watch?v=lcrgj26G5Hg
-        private MouseState mouse;
+        private MouseState currentMouse;
         private bool isHovering;
+        private MouseState previousMouse;
         private Texture2D texture;
 
-        public event EventHandler Click;
+        public event EventHandler ClickPlay;
+        public event EventHandler ClickBack;
+        public event EventHandler ClickInstruction;
+        public event EventHandler ClickPause;
+        public event EventHandler ClickResume;
+        public event EventHandler ClickQuit;
+
         public bool Clicked { get;set; }
         public Vector2 Positie { get; set; }
         public Rectangle Rectangle
@@ -42,26 +49,27 @@ namespace InfinityWar.Menu
 
         public void Update(GameTime gameTime)
         {
-            mouse = Mouse.GetState();
-            var mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
+            previousMouse = currentMouse;
+            currentMouse = Mouse.GetState();
+
+            var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
             isHovering = false;
             if (mouseRectangle.Intersects(Rectangle))
             {
                 isHovering = true;
             }
-            if (mouse.LeftButton == ButtonState.Pressed)
-            {
-                Clicked = true;
-            }
-            else
-                Clicked = false;
 
-            //if(currentMouse.LeftButton == ButtonState.Released && previousMouse.LeftButton == ButtonState.Pressed)
-            //{
-            //   // Click.Invoke(this, new EventArgs());
-            //    if (Click != null)
-            //        Click(this, new EventArgs());
-            //}
+            if (currentMouse.LeftButton == ButtonState.Released && previousMouse.LeftButton == ButtonState.Pressed && isHovering)
+            {
+                ClickPlay?.Invoke(this, new EventArgs());
+                ClickBack?.Invoke(this, new EventArgs());
+                ClickInstruction?.Invoke(this, new EventArgs());
+                ClickPause?.Invoke(this, new EventArgs());
+                ClickResume?.Invoke(this, new EventArgs());
+                ClickQuit?.Invoke(this, new EventArgs());
+
+
+            }
 
         }
     }

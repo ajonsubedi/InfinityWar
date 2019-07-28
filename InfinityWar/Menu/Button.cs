@@ -25,6 +25,7 @@ namespace InfinityWar.Menu
         public event EventHandler ClickPause;
         public event EventHandler ClickResume;
         public event EventHandler ClickQuit;
+        public event EventHandler ClickRestart;
 
         public bool Clicked { get;set; }
         public Vector2 Positie { get; set; }
@@ -67,8 +68,7 @@ namespace InfinityWar.Menu
                 ClickPause?.Invoke(this, new EventArgs());
                 ClickResume?.Invoke(this, new EventArgs());
                 ClickQuit?.Invoke(this, new EventArgs());
-
-
+                ClickRestart?.Invoke(this, new EventArgs());
             }
 
         }

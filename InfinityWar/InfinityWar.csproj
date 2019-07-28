@@ -46,6 +46,7 @@
     <Compile Include="Animation\AnimationFrame.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\Enemy.cs" />
+    <Compile Include="Characters\FireBall.cs" />
     <Compile Include="Characters\Mjolnir.cs" />
     <Compile Include="Characters\Thanos.cs" />
     <Compile Include="Characters\Thor.cs" />
@@ -58,14 +59,16 @@
     <Compile Include="Levels\Background.cs" />
     <Compile Include="Levels\Camera2D.cs" />
     <Compile Include="Levels\Coin.cs" />
-    <Compile Include="Levels\Door.cs" />
-    <Compile Include="Levels\Key.cs" />
-    <Compile Include="Levels\NextLevel.cs" />
+    <Compile Include="Levels\Health.cs" />
+    <Compile Include="Levels\Level1\Door.cs" />
+    <Compile Include="Levels\Level1\Key.cs" />
+    <Compile Include="Levels\Level1\NextLevel.cs" />
+    <Compile Include="Levels\Level2\ThanosHealth.cs" />
     <Compile Include="Levels\Score.cs" />
-    <Compile Include="Levels\Spike.cs" />
+    <Compile Include="Levels\Level1\Spike.cs" />
     <Compile Include="Levels\Stage.cs" />
-    <Compile Include="Levels\Stage1.cs" />
-    <Compile Include="Levels\Stage2.cs" />
+    <Compile Include="Levels\Level1\Stage1.cs" />
+    <Compile Include="Levels\Level2\Stage2.cs" />
     <Compile Include="Levels\Tile.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Program.cs" />
@@ -86,9 +89,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Levels\Level1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

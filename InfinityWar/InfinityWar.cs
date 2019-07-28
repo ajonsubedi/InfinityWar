@@ -1,6 +1,7 @@
 ﻿using InfinityWar.Characters;
 using InfinityWar.Level;
 using InfinityWar.Levels;
+using InfinityWar.Levels.Level2;
 using InfinityWar.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,28 +17,31 @@ namespace InfinityWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex,backTex, mainMenuBGTex, instructionsBGTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex, thanosTex, playButtonTex, instructTex, pauseTex, pausedBGTex, resumeTex, quitTex;
+        Texture2D thorMovingTex, Level1BackgroundTex, Level2BackgroundTex,backTex, mainMenuBGTex, instructionsBGTex,fireballTex, enemyTex, coinTex, spikeTex, doorTex, keyTex, mjolnirTex, nextLevelTex, thanosTex, playButtonTex, instructTex, pauseTex, pausedBGTex, resumeTex, quitTex, gameOverBGTex, restartTex, endgameTex;
         Thor thor;
         Thanos thanos;
         Stage1 stage1 = new Stage1();
         Stage2 stage2 = new Stage2();
         Camera2D camera;
-        Background backgroundLevel1, backgroundLevel2, mainMenu, instructions, pausedBG;
+        Background backgroundLevel1, backgroundLevel2, mainMenu, instructions, pausedBG, gameOverBG, endgameBG;
         List<Coin> coins = new List<Coin>();
         List<Spike> spikes = new List<Spike>();
         List<Key> keys = new List<Key>();
         List<NextLevel> nextlevels = new List<NextLevel>();
         List<Enemy> enemies = new List<Enemy>();
+        List<FireBall> fireballs = new List<FireBall>();
         Door door;
         Mjolnir mjolnir;
-        Button playButton, instructionButton, backButton, pauseButton, resumeButton, quitButton;
+        Button playButton, instructionButton, backButton, pauseButton, resumeButton, quitButton, restartButton;
         Controls controls = new Controls();
         bool level1 = true, level2 = false;
-        static Score score, finalScore;
-        static SpriteFont scoreFont, finalScoreFont;
-        static Vector2 scorePos, finalScorePos;
+        static Score score;
+        static ThanosHealth thanosHealth;
+        static Health health;
+        static SpriteFont font;
+        static Vector2 scorePos, thanosHealthPos, healthPos;
         bool doorIsVisible = true;
-        int level1Coins;
+        int level1Coins, level1Health;
         bool paused = false;
         enum GameState //GameState bepalen
         {
@@ -100,15 +104,19 @@ namespace InfinityWar
             instructionsBGTex = Content.Load<Texture2D>("instructionBG");
             thorMovingTex = Content.Load<Texture2D>("ThorMoving");
             mjolnirTex = Content.Load<Texture2D>("mjolnir");
-            scoreFont = Content.Load<SpriteFont>("scoreFont");
+            font = Content.Load<SpriteFont>("scoreFont");
             playButtonTex = Content.Load<Texture2D>("playButton");
             instructTex = Content.Load<Texture2D>("instructionButton");
             backTex = Content.Load<Texture2D>("back");
             pauseTex = Content.Load<Texture2D>("pause");
             resumeTex = Content.Load<Texture2D>("resume");
             quitTex = Content.Load<Texture2D>("quit");
+            gameOverBGTex = Content.Load<Texture2D>("gameoverBG");
+            restartTex = Content.Load<Texture2D>("restart");
+            endgameTex = Content.Load<Texture2D>("endgame");
+            fireballTex = Content.Load<Texture2D>("fireball");
 
-            //MainMenuButtons
+            //Buttons
             playButton = new Button(playButtonTex)
             {
                 Positie = new Vector2(50, 50),
@@ -131,7 +139,7 @@ namespace InfinityWar
 
             pauseButton = new Button(pauseTex)
             {
-                Positie = new Vector2(700, 50)
+                Positie = new Vector2(735, 5)
             };
             pauseButton.ClickPause += PauseButton_ClickPause;
 
@@ -147,14 +155,26 @@ namespace InfinityWar
             };
             quitButton.ClickQuit += QuitButton_ClickQuit;
 
+            restartButton = new Button(restartTex)
+            {
+                Positie = new Vector2(200, 320)
+            };
+            restartButton.ClickRestart += RestartButton_ClickRestart;
 
 
 
 
 
-            thor = new Thor(thorMovingTex, new Vector2(0, 0), 10);
+            healthPos = new Vector2(175, 15);
+            health = new Health(font, healthPos);
+            thor = new Thor(thorMovingTex, new Vector2(0, 0), health.health);
             scorePos = new Vector2(5, 15);
-            score = new Score(scoreFont, scorePos);
+            score = new Score(font, scorePos);
+
+
+
+
+            thanosHealth = new ThanosHealth(font, healthPos);
             mjolnir = new Mjolnir(mjolnirTex);
             Tile.Content = Content;
             
@@ -168,6 +188,10 @@ namespace InfinityWar
             new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
             pausedBG = new Background(pausedBGTex, new Vector2(150, 100),
             new Rectangle(150, 100, 533, 320));
+            gameOverBG = new Background(gameOverBGTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+            new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            endgameBG = new Background(endgameTex, new Vector2(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y),
+            new Rectangle(GraphicsDevice.Viewport.X, GraphicsDevice.Viewport.Y, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
             stage1.AddEnemiesLevel(enemies, enemyTex);
             stage1.AddCoinsLevel(coins, coinTex);
@@ -182,14 +206,32 @@ namespace InfinityWar
                 stage2.AddEnemiesLevel(enemies, enemyTex);
                 stage2.AddCoinsLevel(coins, coinTex);
                 stage2.DrawLevel();
+                quitButton = new Button(quitTex)
+                {
+                    Positie = new Vector2(450, 320)
+                };
+                quitButton.ClickQuit += QuitButton_ClickQuit;
             }
-            thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550, 100);
+            thanos = new Thanos(thanosTex, new Vector2(1550, 700), 2500, 1550, thanosHealth.health, fireballTex);
+
+        }
+
+        private void RestartButton_ClickRestart(object sender, System.EventArgs e)
+        {
+            if (level1)
+                RestartLevel1();
+            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+            doorIsVisible = true;
+            door.isLocked = true;
+            if (level2)
+                RestartLevel2();
         }
 
         private void QuitButton_ClickQuit(object sender, System.EventArgs e)
         {
             CurrentGameState = GameState.MainMenu;
             paused = false;
+            health.health = 100;
         }
 
         private void ResumeButton_ClickResume(object sender, System.EventArgs e)
@@ -215,6 +257,13 @@ namespace InfinityWar
 
         private void PlayButton_Click(object sender, System.EventArgs e)
         {
+            level2 = false;
+            level1 = true;
+            stage1.DrawLevel();
+            RestartLevel1();
+            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+            doorIsVisible = true;
+            door.isLocked = true;
             CurrentGameState = GameState.Playing;
         }
 
@@ -253,6 +302,7 @@ namespace InfinityWar
                 instructionButton.Update(gameTime);
                 backButton.Update(gameTime);
                 pauseButton.Update(gameTime);
+                restartButton.Update(gameTime);
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Update(gameTime);
@@ -282,6 +332,9 @@ namespace InfinityWar
                     coin.Update(gameTime);
                 }
 
+                if (health.health <= 0)
+                    CurrentGameState = GameState.GameOver;
+
 
 
                 //Methodes die gelden voor level 1
@@ -302,48 +355,16 @@ namespace InfinityWar
                     {
                         if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
                         {
-                            coins.Clear();
-                            enemies.Clear();
-                            stage1.AddCoinsLevel(coins, coinTex);
-                            stage1.AddEnemiesLevel(enemies, enemyTex);
-                            thor.Positie.X = 0;
-                            thor.Positie.Y = 0;
-                            foreach (Key key in keys)
-                            {
-                                key.isTaken = false;
-                            }
-                            keys.Add(new Key(keyTex, new Vector2(100, 90)));
-                            score._score = 0;
-                            doorIsVisible = true;
-                            thor.isHurt = true;
-                            if (thor.isHurt)
-                            {
-                                thor.health -= 20;
-                            }
+                            //CurrentGameState = GameState.GameOver;
+                            //RestartLevel1();
+                            health.health--;
                         }
                     }
 
                     //Level 1 herstarten als je op de knop "R" drukt
                     if (controls.Restart)
                     {
-                        coins.Clear();
-                        enemies.Clear();
-                        stage1.AddCoinsLevel(coins, coinTex);
-                        stage1.AddEnemiesLevel(enemies, enemyTex);
-                        thor.Positie.X = 0;
-                        thor.Positie.Y = 0;
-                        foreach (Key key in keys)
-                        {
-                            key.isTaken = false;
-                        }
-                        keys.Add(new Key(keyTex, new Vector2(100, 90)));
-                        score._score = 0;
-                        doorIsVisible = true;
-                        thor.isHurt = true;
-                        if (thor.isHurt)
-                        {
-                            thor.health -= 20;
-                        }
+                        RestartLevel1();
                     }
 
                     foreach (CollisionTiles tile in stage1.CollisionTiles)
@@ -373,6 +394,7 @@ namespace InfinityWar
                             spike.Collision(tile.Rectangle, stage1.Width, stage1.Height);
                             if (thor.ViewRectangle.Intersects(spike.ViewRectangle))
                             {
+                                CurrentGameState = GameState.GameOver;
                                 coins.Clear();
                                 enemies.Clear();
                                 stage1.AddCoinsLevel(coins, coinTex);
@@ -386,11 +408,6 @@ namespace InfinityWar
                                 keys.Add(new Key(keyTex, new Vector2(100, 90)));
                                 score._score = 0;
                                 doorIsVisible = true;
-                                thor.isHurt = true;
-                                if (thor.isHurt)
-                                {
-                                    thor.health -= 20;
-                                }
                             }
                         }
 
@@ -427,20 +444,16 @@ namespace InfinityWar
                     thanos.Update(gameTime);
                     thanos.TurnEnemy(gameTime);
                     thanos.GetDamage(mjolnir.ViewRectangle);
-
+                    thanos.GiveDamage(thor.ViewRectangle, health.health);
 
                     //Het spel herstarten
                     for (int i = 0; i < enemies.Count; i++)
                     {
                         if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
                         {
-                            coins.Clear();
-                            enemies.Clear();
-                            stage2.AddCoinsLevel(coins, coinTex);
-                            stage2.AddEnemiesLevel(enemies, enemyTex);
-                            thor.Positie.X = 0;
-                            thor.Positie.Y = 600;
-                            score._score = level1Coins;
+                            //CurrentGameState = GameState.GameOver;
+                            //RestartLevel1();
+                            health.health--;
                         }
                     }
 
@@ -468,7 +481,7 @@ namespace InfinityWar
                         }
                         if (thanos.health <= 0)
                         {
-                            thor.Positie.X = 0;
+                            CurrentGameState = GameState.EndGame;
                         }
                     }
                 }
@@ -494,6 +507,7 @@ namespace InfinityWar
                         thor.Positie.Y = 600;
                         nextlevels.Clear();
                         level1Coins = score._score;
+                        level1Health = health.health;
                     }
                 }
                 base.Update(gameTime);
@@ -590,7 +604,10 @@ namespace InfinityWar
                     //Scoreboard
                     spriteBatch.Begin();
                     score.Draw(spriteBatch);
+                    health.Draw(spriteBatch);
                     pauseButton.Draw(spriteBatch);
+                    if(level2)
+                        thanosHealth.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameState.Instructions:
@@ -664,7 +681,7 @@ namespace InfinityWar
                     {
                         stage2.Draw(spriteBatch);
                         thanos.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
-                    }
+                        }
                     spriteBatch.End();
 
                     //Scoreboard
@@ -677,6 +694,17 @@ namespace InfinityWar
                     spriteBatch.End();
                     break;
                 case GameState.EndGame:
+                    spriteBatch.Begin();
+                    endgameBG.Draw(spriteBatch);
+
+                    spriteBatch.End();
+                    break;
+                case GameState.GameOver:
+                    spriteBatch.Begin();
+                    gameOverBG.Draw(spriteBatch);
+                    restartButton.Draw(spriteBatch);
+                    quitButton.Draw(spriteBatch);
+                    spriteBatch.End();
                     break;
             }
 
@@ -684,6 +712,39 @@ namespace InfinityWar
 
 
             base.Draw(gameTime);
+        }
+
+        public void RestartLevel1()
+        {
+            coins.Clear();
+            enemies.Clear();
+            stage1.AddCoinsLevel(coins, coinTex);
+            stage1.AddEnemiesLevel(enemies, enemyTex);
+            stage1.AddSpikes(spikes, spikeTex);
+            thor.Positie.X = 0;
+            thor.Positie.Y = 0;
+            foreach (Key key in keys)
+            {
+                key.isTaken = false;
+            }
+            keys.Add(new Key(keyTex, new Vector2(100, 90)));
+            nextlevels.Add(new NextLevel(nextLevelTex, new Vector2(2500, 500)));
+            score._score = 0;
+            health.health = 100;
+            doorIsVisible = true;
+        }
+
+        public void RestartLevel2()
+        {
+            level2 = true;
+            coins.Clear();
+            enemies.Clear();
+            stage2.AddCoinsLevel(coins, coinTex);
+            stage2.AddEnemiesLevel(enemies, enemyTex);
+            thor.Positie.X = 0;
+            thor.Positie.Y = 600;
+            health.health = 100;
+            score._score = level1Coins;
         }
     }
 }

@@ -7,8 +7,11 @@
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/back.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/coin.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/door.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/endgame.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/enemy.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/fireball.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/gameBackground.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/gameoverBG.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/healthBarGreen.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/healthBarRed.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/heart.png</File>
@@ -23,6 +26,7 @@
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/pausedBG.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/playButton.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/quit.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/restart.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/resume.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/scoreFont.spritefont</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/spike.png</File>

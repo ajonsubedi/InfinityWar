@@ -91,3 +91,7 @@ C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\pau
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\pausedBG.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\quit.xnb
 C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\resume.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\gameoverBG.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\restart.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\endgame.xnb
+C:\Users\ajons\Desktop\InfinityWar\InfinityWar\bin\Windows\x86\Debug\Content\fireball.xnb

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/mjolnir-sound.wav</SourceFile>
+  <SourceTime>2019-08-19T20:57:05.9975513+02:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/Content/mjolnir-sound.xnb</DestFile>
+  <DestTime>2019-08-19T20:57:49.8927795+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2017-09-27T03:32:24+02:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

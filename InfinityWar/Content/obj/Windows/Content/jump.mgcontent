@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/jump.wav</SourceFile>
+  <SourceTime>2019-08-19T20:16:51.8703358+02:00</SourceTime>
+  <DestFile>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/bin/Windows/Content/jump.xnb</DestFile>
+  <DestTime>2019-08-19T20:28:12.4183647+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2017-09-27T03:32:24+02:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2017-09-27T03:32:24+02:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

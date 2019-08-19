@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin avengers-theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:avengers-theme.mp3
+
 #begin back.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -169,6 +175,12 @@
 /processorParam:TextureFormat=Color
 /build:instructionButton.png
 
+#begin jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jump.wav
+
 #begin key.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -216,6 +228,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mjolnir.png
+
+#begin mjolnir-sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:mjolnir-sound.wav
 
 #begin nextlevel.png
 /importer:TextureImporter

@@ -4,8 +4,10 @@ using InfinityWar.Levels;
 using InfinityWar.Levels.Level2;
 using InfinityWar.Menu;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace InfinityWar
@@ -43,6 +45,8 @@ namespace InfinityWar
         bool doorIsVisible = true;
         int level1Coins, level1Health;
         bool paused = false;
+        Song bgMusic;
+        SoundEffect jumpEffect, mjolnirEffect;
         enum GameState //GameState bepalen
         {
             MainMenu,
@@ -115,6 +119,15 @@ namespace InfinityWar
             restartTex = Content.Load<Texture2D>("restart");
             endgameTex = Content.Load<Texture2D>("endgame");
             fireballTex = Content.Load<Texture2D>("fireball");
+
+            jumpEffect = Content.Load<SoundEffect>("jump");
+            mjolnirEffect = Content.Load<SoundEffect>("mjolnir-sound");
+
+            bgMusic = Content.Load<Song>("avengers-theme");
+            for (int i = 0; i < 100; i++)
+            {
+                MediaPlayer.Play(bgMusic);
+            }
 
             //Buttons
             playButton = new Button(playButtonTex)
@@ -296,7 +309,7 @@ namespace InfinityWar
             quitButton.Update(gameTime);
             if (!paused)
             {
-                thor.Update(gameTime);
+                thor.Update(gameTime, jumpEffect, mjolnirEffect);
                 controls.Update();
                 playButton.Update(gameTime);
                 instructionButton.Update(gameTime);
@@ -444,9 +457,17 @@ namespace InfinityWar
                     thanos.Update(gameTime);
                     thanos.TurnEnemy(gameTime);
                     thanos.GetDamage(mjolnir.ViewRectangle);
-                    thanos.GiveDamage(thor.ViewRectangle, health.health);
+                   // thanos.GiveDamage(thor.ViewRectangle, health.health);
+                   //give damage to thor from thanos
+                    foreach (FireBall fireball in thanos.fireballs)
+                    {
+                        if (thor.ViewRectangle.Intersects(fireball.ViewRectangle))
+                        {
+                            health.health--;
+                        }
+                        fireball.Update();
+                    }
 
-                    //Het spel herstarten
                     for (int i = 0; i < enemies.Count; i++)
                     {
                         if (thor.ViewRectangle.Intersects(enemies[i].ViewRectangle))
@@ -537,6 +558,7 @@ namespace InfinityWar
                     break;
                 case GameState.Playing:
                     //Objeten die niet met de camera bewegen
+                    MediaPlayer.Volume = 0.2f;
                     spriteBatch.Begin();
                     if (level1)
                         backgroundLevel1.Draw(spriteBatch);
@@ -739,6 +761,7 @@ namespace InfinityWar
             level2 = true;
             coins.Clear();
             enemies.Clear();
+            thanos.fireballs.Clear();
             stage2.AddCoinsLevel(coins, coinTex);
             stage2.AddEnemiesLevel(enemies, enemyTex);
             thor.Positie.X = 0;

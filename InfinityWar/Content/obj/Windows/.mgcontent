@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/avengers-theme.mp3</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/back.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/coin.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/door.png</File>
@@ -17,10 +18,12 @@
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/heart.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/instructionBG.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/instructionButton.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/jump.wav</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/key.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/level2BG.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/mainmenu.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/mjolnir.png</File>
+    <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/mjolnir-sound.wav</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/nextlevel.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/pause.png</File>
     <File>C:/Users/ajons/Desktop/InfinityWar/InfinityWar/Content/pausedBG.png</File>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using InfinityWar.Levels;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InfinityWar.Characters
 {
@@ -38,7 +39,7 @@ namespace InfinityWar.Characters
         }
 
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, SoundEffect jump, SoundEffect mjolnir)
         {
             Positie += Velocity;
             _controls.Update();
@@ -75,6 +76,11 @@ namespace InfinityWar.Characters
                     Positie.Y -= 10f;
                     Velocity.Y = -6f;
                     isJumping = true;
+                    jump.Play();
+                }
+                if (_controls.Throw)
+                {
+                    mjolnir.Play();
                 }
             }
         }

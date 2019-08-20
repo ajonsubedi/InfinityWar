@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace InfinityWar.Characters
 {
+    /// <summary>
+    /// Dit is een klasse voor de fireballs, hier gebeuren al de acties
+    /// </summary>
     class FireBall
     {
         public Texture2D Texture;

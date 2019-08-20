@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace InfinityWar.Characters
 {
+    /// <summary>
+    /// Dit is een klasse voor de hamer van Thor, hier gebeuren al de acties
+    /// </summary>
     class Mjolnir
     {
         public Boolean isVisible, hasKilled = false, isMoving = false;

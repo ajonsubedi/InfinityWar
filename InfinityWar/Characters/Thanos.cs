@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace InfinityWar.Characters
 {
+    /// <summary>
+    /// Dit is een klasse voor de Thanos, hier gebeuren al zijn bewegingen en acties
+    /// </summary>
     class Thanos : Character
     {
         public Boolean isKilled = false;
